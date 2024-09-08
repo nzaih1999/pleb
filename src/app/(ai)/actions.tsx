@@ -85,10 +85,26 @@ export async function continueConversation(
 
           history.done([
             ...(history.get() as CoreMessage[]),
-
             {
               role: "assistant",
-              content: `The registration form for rendercon is ${toolCallId}`,
+              content: [
+                {
+                  type: "text",
+                  text: "showing registration form on the screen",
+                },
+              ],
+            },
+
+            {
+              role: "tool",
+              content: [
+                {
+                  type: "tool-result",
+                  toolCallId,
+                  toolName: "showRenderconRegistration",
+                  result: "showing registration form on the screen",
+                },
+              ],
             },
           ]);
 
