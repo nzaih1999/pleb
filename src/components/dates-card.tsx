@@ -20,15 +20,15 @@ const suggestedActions = [
   },
 
   {
-    title: "Attend",
-    label: "Attend Rendercon!",
-    action: "Attend Rendercon",
+    title: "How much",
+    label: "water have I used this month?",
+    action: "Show water usage",
   },
 ];
 
 export default function DateTime({ startDate, endDate }: RenderConCardProps) {
   const { continueConversation } = useActions();
-  const [conversation, setConversation] = useUIState();
+  const [_, setConversation] = useUIState();
   return (
     <div>
       <Card className="w-full max-w-md mx-auto bg-slate-900">

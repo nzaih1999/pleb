@@ -48,7 +48,7 @@ export function Hero() {
     {
       title: "When",
       label: "When is rendercon?",
-      action: "When is rendercon happening?",
+      action: "Show dates for rendercon",
     },
     {
       title: "How much",

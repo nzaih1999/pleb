@@ -47,3 +47,27 @@ export const BackgroundDots: React.FC<DotPatternBackgroundProps> = ({
 };
 
 export default BackgroundDots;
+
+// history.done((messages: ServerMessage[]) => [
+//             ...messages
+//             {
+//               role: "assistant",
+//               content: [
+//                 {
+//                   type: "tool-result",
+//                   toolName: "showRenderConDate",
+//                   result: renderConDates,
+//                 },
+//               ],
+//             },
+//             {
+//               role: "tool",
+//               content: [
+//                 {
+//                   type: "tool-result",
+//                   toolName: "showRenderConDate",
+//                   result: renderConDates,
+//                 },
+//               ],
+//             },
+//           ])

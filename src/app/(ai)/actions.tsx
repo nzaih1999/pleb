@@ -3,7 +3,7 @@ import { createAI, getMutableAIState, streamUI } from "ai/rsc";
 import { createOpenAI } from "@ai-sdk/openai";
 import { ReactNode } from "react";
 import { z } from "zod";
-import { generateId } from "ai";
+import { CoreMessage, generateId } from "ai";
 import DateTime from "@/components/dates-card";
 import SocialCardForm from "@/components/social-card-form";
 
@@ -32,7 +32,11 @@ export async function continueConversation(
   const result = await streamUI({
     model: groq("llama3-groq-70b-8192-tool-use-preview"),
     system: `You are a friendly helpful assistant helping users to get information about the biggest react focused conference called Rendercon.\nYou can use tools to help users get information about the biggest react focused conference called Rendercon`,
-    messages: [...history.get(), { role: "user", content: input }],
+    messages: [
+      ...(history.get() as CoreMessage[]),
+      { role: "user", content: input },
+    ],
+
     text: ({ content, done }) => {
       if (done) {
         history.done((messages: ServerMessage[]) => [
@@ -46,8 +50,7 @@ export async function continueConversation(
     tools: {
       showRenderConDate: {
         description: "Get the dates when rendercon is happening",
-
-        parameters: z.object({}),
+        parameters: z.object({}).describe("Get the date of RenderCon"),
         generate: async function* () {
           yield <p>Getting the dates for RenderCon</p>;
           const renderConDates = {
@@ -55,11 +58,11 @@ export async function continueConversation(
             endDate: "october 5, 2024",
           };
 
-          history.done((messages: ServerMessage[]) => [
-            ...messages,
+          history.done([
+            ...(history.get() as CoreMessage[]),
             {
               role: "assistant",
-              content: `Show dates for rendercon`,
+              content: `The dates for rendercon are ${renderConDates.startDate} and ${renderConDates.endDate}`,
             },
           ]);
 
@@ -71,17 +74,21 @@ export async function continueConversation(
           );
         },
       },
-      registerForRenderCon: {
-        description: "Register for rendercon",
-        parameters: z.object({}),
+      showRenderconRegistration: {
+        description: "Show the registration form for rendercon",
+        parameters: z
+          .object({})
+          .describe("Show the registration form for rendercon"),
         generate: async function* () {
-          yield <p>Registering for rendercon</p>;
+          const toolCallId = generateId();
+          yield <p>Getting the registration form for rendercon</p>;
 
-          history.done((messages: ServerMessage[]) => [
-            ...messages,
+          history.done([
+            ...(history.get() as CoreMessage[]),
+
             {
               role: "assistant",
-              content: `Register for rendercon`,
+              content: `The registration form for rendercon is ${toolCallId}`,
             },
           ]);
 
