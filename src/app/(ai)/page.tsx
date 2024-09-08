@@ -21,7 +21,7 @@ export default function Home() {
     console.log("submitted");
   };
   return (
-    <main className="min-h-screen max-l mx-auto">
+    <main className="min-h-screen h-full max-l mx-auto">
       <Hero />
     </main>
   );

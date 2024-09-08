@@ -1,33 +1,128 @@
 "use client";
 
+import { ReactNode, useRef, useState } from "react";
+import { useActions, useUIState } from "ai/rsc";
+import { Message } from "@/components/messages";
+import { useScrollToBottom } from "@/components/scroll-to-bottom";
+import { motion } from "framer-motion";
+import Link from "next/link";
+
 import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
+import { generateId } from "ai";
+import { ClientMessage } from "@/app/(ai)/actions";
 
 export function Hero() {
-  const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
-  ];
+  const { sendMessage } = useActions();
+  const [conversation, setConversation] = useUIState();
+  const { continueConversation } = useActions();
+  const [input, setInput] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    setInput(e.target.value);
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setConversation((currentConversation: ClientMessage[]) => [
+      ...currentConversation,
+      { id: generateId(), role: "user", display: input },
+    ]);
+
+    const message = await continueConversation(input);
+
+    setConversation((currentConversation: ClientMessage[]) => [
+      ...currentConversation,
+      message,
+    ]);
   };
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [messagesContainerRef, messagesEndRef] =
+    useScrollToBottom<HTMLDivElement>();
+
+  const suggestedActions = [
+    {
+      title: "Register",
+      label: "Register for Rendercon",
+      action: "Register for Rendercon",
+    },
+    {
+      title: "When",
+      label: "When is rendercon?",
+      action: "When is rendercon happening?",
+    },
+    {
+      title: "How much",
+      label: "water have I used this month?",
+      action: "Show water usage",
+    },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col justify-center  items-center px-4  ">
-      <h2 className="mb-10 sm:mb-20 text-xl text-center sm:text-5xl dark:text-white text-black">
-        Welcome Back!
-      </h2>
-      <PlaceholdersAndVanishInput
-        placeholders={placeholders}
-        onChange={handleChange}
-        onSubmit={onSubmit}
-      />
+    <div className="flex flex-row justify-center pb-20 h-dvh bg-white dark:bg-zinc-900">
+      <div className="flex flex-col justify-between gap-4">
+        <div
+          ref={messagesContainerRef}
+          className="flex flex-col gap-3  w-dvw items-center overflow-y-scroll overflow-hidden z-50"
+        >
+          {conversation.map((message: ClientMessage) => (
+            <div key={message.id}>
+              <Message
+                content={message.display}
+                role={message.role}
+                key={message.id}
+              />
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <div className="grid  sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] mb-4 z-50 ">
+          {conversation.length === 0 &&
+            suggestedActions.map((action, index) => (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.01 * index }}
+                key={index}
+                className={"sm:block"}
+              >
+                <button
+                  onClick={async () => {
+                    setConversation((messages: ClientMessage[]) => [
+                      ...messages,
+                      {
+                        id: generateId(),
+                        role: "user",
+                        display: action.action,
+                      },
+                    ]);
+                    const response: ReactNode = await continueConversation(
+                      action.action
+                    );
+                    setConversation((messages: ClientMessage[]) => [
+                      ...messages,
+                      response,
+                    ]);
+                  }}
+                  className="w-full text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors flex flex-col"
+                >
+                  <span className="font-medium">{action.title}</span>
+                  <span className="text-zinc-500 dark:text-zinc-400">
+                    {action.label}
+                  </span>
+                </button>
+              </motion.div>
+            ))}
+        </div>
+
+        <div className="flex flex-col gap-2 relative items-center">
+          <PlaceholdersAndVanishInput
+            placeholders={["Ask me anything"]}
+            onChange={handleChange}
+            onSubmit={onSubmit}
+          />
+        </div>
+      </div>
     </div>
   );
 }

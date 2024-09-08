@@ -1,7 +1,18 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "leaflet/dist/leaflet.css";
 import BackgroundDots from "@/components/backgrounds";
+import { AI } from "./(ai)/actions";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,11 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main>{children}</main>
-        <BackgroundDots dotColor="#66339B" />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={GeistMono.className}>
+          <AI>
+            <main>
+              {children}
+              <BackgroundDots />
+            </main>
+          </AI>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
