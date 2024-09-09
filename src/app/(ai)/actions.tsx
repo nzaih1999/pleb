@@ -6,6 +6,7 @@ import { z } from "zod";
 import { CoreMessage, generateId } from "ai";
 import DateTime from "@/components/dates-card";
 import SocialCardForm from "@/components/social-card-form";
+import { SignInButton } from "@clerk/nextjs";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -109,6 +110,40 @@ export async function continueConversation(
           ]);
 
           return <SocialCardForm />;
+        },
+      },
+      showSignInButton: {
+        description: "Show the sign in button",
+        parameters: z.object({}).describe("Show the sign in button"),
+        generate: async function* () {
+          const toolCallId = generateId();
+          yield <p>Getting the sign in button</p>;
+
+          history.done([
+            ...(history.get() as CoreMessage[]),
+            {
+              role: "assistant",
+              content: [
+                {
+                  type: "text",
+                  text: "showing sign in button on the screen",
+                },
+              ],
+            },
+
+            {
+              role: "tool",
+              content: [
+                {
+                  type: "tool-result",
+                  toolCallId,
+                  toolName: "showSignInButton",
+                  result: "showing sign in button on the screen",
+                },
+              ],
+            },
+          ]);
+          return <SignInButton />;
         },
       },
     },

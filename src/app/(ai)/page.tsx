@@ -3,6 +3,8 @@ import { Hero } from "@/components/hero";
 import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import Image from "next/image";
 import { useState } from "react";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Navbar from "@/components/navbar";
 
 export default function Home() {
   const placeholders = [
@@ -22,6 +24,7 @@ export default function Home() {
   };
   return (
     <main className="min-h-screen h-full max-l mx-auto">
+      <Navbar />
       <Hero />
     </main>
   );

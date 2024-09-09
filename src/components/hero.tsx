@@ -1,11 +1,10 @@
 "use client";
-
 import { ReactNode, useRef, useState } from "react";
 import { useActions, useUIState } from "ai/rsc";
 import { Message } from "@/components/messages";
 import { useScrollToBottom } from "@/components/scroll-to-bottom";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import { generateId } from "ai";
@@ -51,18 +50,18 @@ export function Hero() {
       action: "Show dates for rendercon",
     },
     {
-      title: "How much",
-      label: "water have I used this month?",
-      action: "Show water usage",
+      title: "Sign in",
+      label: "Sign in to Rendercon",
+      action: "Show the sign in button",
     },
   ];
 
   return (
-    <div className="flex flex-row justify-center pb-20 h-dvh bg-white dark:bg-zinc-900">
+    <div className="flex flex-row justify-center py-20 h-dvh bg-white dark:bg-zinc-900">
       <div className="flex flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
-          className="flex flex-col gap-3  w-dvw items-center overflow-y-scroll overflow-hidden z-50"
+          className="flex flex-col gap-3  w-dvw items-center overflow-y-scroll overflow-hidden z-10"
         >
           {conversation.map((message: ClientMessage) => (
             <div key={message.id}>
@@ -76,7 +75,7 @@ export function Hero() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="grid  sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] mb-4 z-50 ">
+        <div className="grid  sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] mb-4 z-10 ">
           {conversation.length === 0 &&
             suggestedActions.map((action, index) => (
               <motion.div
