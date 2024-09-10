@@ -35,7 +35,10 @@ export const registerForm = actionClient
         website,
       },
     }) => {
-      return { failure: "Incorrect credentials" };
+      const { userId } = auth();
+      if (!userId) {
+        throw new Error("User not authenticated");
+      }
     }
   );
 

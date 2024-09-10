@@ -4,9 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { useAction } from "next-safe-action/hooks";
+import { registerForm } from "@/lib/actions";
 
 export default function SocialCardForm() {
-  const { execute, isPending } = useAction();
+  const { execute: register, isExecuting } = useAction(registerForm);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
