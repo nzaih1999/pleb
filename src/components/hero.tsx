@@ -9,6 +9,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import { generateId } from "ai";
 import { ClientMessage } from "@/app/(ai)/actions";
+import EventBadge from "./event-badge";
 
 export function Hero() {
   const { sendMessage } = useActions();

@@ -7,6 +7,8 @@ import { CoreMessage, generateId } from "ai";
 import DateTime from "@/components/dates-card";
 import SocialCardForm from "@/components/social-card-form";
 import { SignInButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import SignUpButton from "@/components/sign-up-button";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -116,7 +118,9 @@ export async function continueConversation(
         description: "Show the sign in button",
         parameters: z.object({}).describe("Show the sign in button"),
         generate: async function* () {
+          const user = await currentUser();
           const toolCallId = generateId();
+
           yield <p>Getting the sign in button</p>;
 
           history.done([
@@ -126,7 +130,7 @@ export async function continueConversation(
               content: [
                 {
                   type: "text",
-                  text: "showing sign in button on the screen",
+                  text: "checking if user is signed in on the screen",
                 },
               ],
             },
@@ -138,12 +142,16 @@ export async function continueConversation(
                   type: "tool-result",
                   toolCallId,
                   toolName: "showSignInButton",
-                  result: "showing sign in button on the screen",
+                  result: "checking if user is signed in on the screen",
                 },
               ],
             },
           ]);
-          return <SignInButton />;
+          if (user) {
+            return <p>User is signed in</p>;
+          } else {
+            return <SignUpButton />;
+          }
         },
       },
     },
