@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import { z } from "zod";
 import { CoreMessage, generateId } from "ai";
 import DateTime from "@/components/dates-card";
-import SocialCardForm from "@/components/social-card-form";
+import { SocialCardForm } from "@/components/social-card-form";
 import { SignInButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import SignUpButton from "@/components/sign-up-button";

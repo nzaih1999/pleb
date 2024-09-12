@@ -2,6 +2,8 @@
 
 import { z } from "zod";
 import { actionClient } from "./safe-actions";
+import { auth } from "@clerk/nextjs/server";
+import { prisma } from "./prisma";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -39,46 +41,41 @@ export const registerForm = actionClient
       if (!userId) {
         throw new Error("User not authenticated");
       }
-    }
-  );
 
-import { auth } from "@clerk/nextjs/server";
-import { prisma } from "./prisma";
-// app/actions/user.ts
-
-export const saveUser = actionClient
-  .schema(userSchema)
-  .action(async ({ parsedInput }) => {
-    const { userId } = auth();
-
-    if (!userId) {
-      throw new Error("User not authenticated");
-    }
-    const { email, id, firstName, lastName, username } = parsedInput;
-    const checkUser = await prisma.user.findUnique({
-      where: {
-        clerkId: userId,
-      },
-    });
-
-    if (checkUser) {
-      return { success: true, user: checkUser };
-    }
-
-    try {
-      const user = await prisma.user.create({
-        data: {
+      const user = await prisma.user.findUnique({
+        where: {
           clerkId: userId,
-          id,
-          email,
-          firstName,
-          lastName,
-          username,
+        },
+        include: {
+          socialCard: true,
         },
       });
-      return { success: true, user };
-    } catch (error) {
-      console.error("Error saving user:", error);
-      return { success: false, error: "Failed to save user" };
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      const socialCard = await prisma.socialCard.upsert({
+        where: {
+          userId: user.id, // Use userId instead of id
+        },
+        create: {
+          userId: user.id,
+          companyName,
+          email,
+          name: `${firstName} ${lastName}`,
+          profession: profession,
+          website,
+        },
+        update: {
+          companyName,
+          email,
+          name: `${firstName} ${lastName}`,
+          profession: profession,
+          website,
+        },
+      });
+
+      return { success: true, socialCard };
     }
-  });
+  );
