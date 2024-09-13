@@ -9,6 +9,9 @@ import { SocialCardForm } from "@/components/social-card-form";
 import { SignInButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import SignUpButton from "@/components/sign-up-button";
+import { getSpeakers } from "@/lib/speakers";
+
+import { SpeakersCard } from "@/components/expandable-card";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -152,6 +155,47 @@ export async function continueConversation(
           } else {
             return <SignUpButton />;
           }
+        },
+      },
+      showSpeakers: {
+        parameters: z.object({}).describe("Show the speakers"),
+        generate: async function* () {
+          const toolCallId = generateId();
+          const speakers = await getSpeakers();
+          yield <p>Getting the speakers</p>;
+
+          history.done([
+            ...(history.get() as CoreMessage[]),
+            {
+              role: "assistant",
+              content: [
+                {
+                  type: "text",
+                  text: "showing speakers on the screen",
+                },
+              ],
+            },
+
+            {
+              role: "tool",
+              content: [
+                {
+                  type: "tool-result",
+                  toolCallId,
+                  toolName: "showSpeakers",
+                  result: "showing speakers on the screen",
+                },
+              ],
+            },
+          ]);
+
+          return (
+            <div className="">
+              {speakers.map((speaker) => (
+                <SpeakersCard speaker={speaker} key={speaker.id} />
+              ))}
+            </div>
+          );
         },
       },
     },

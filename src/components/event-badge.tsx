@@ -50,7 +50,7 @@ const Badge = ({ name, role, color }: BadgeProps) => {
   );
 };
 
-export default function Component() {
+export default function EventBadge() {
   return (
     <div className="flex space-x-4 pt-16">
       <Badge name="Alex Krivov" role="Speaker" color="purple" />
