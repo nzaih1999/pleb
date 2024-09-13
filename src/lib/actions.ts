@@ -57,7 +57,7 @@ export const registerForm = actionClient
 
       const socialCard = await prisma.socialCard.upsert({
         where: {
-          userId: user.id, // Use userId instead of id
+          userId: user.id,
         },
         create: {
           userId: user.id,

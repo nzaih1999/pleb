@@ -32,8 +32,6 @@ const registrationSchema = z.object({
 
 type RegistrationSchema = z.infer<typeof registrationSchema>;
 
-// This is a mock action. In a real application, you would import your actual action.
-
 export function SocialCardForm() {
   const form = useForm<RegistrationSchema>({
     resolver: zodResolver(registrationSchema),
