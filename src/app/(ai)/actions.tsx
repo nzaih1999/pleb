@@ -198,6 +198,48 @@ export async function continueConversation(
           );
         },
       },
+      showSpeaker: {
+        parameters: z.object({ name: z.string() }).describe("Show the speaker"),
+        generate: async function* ({ name }) {
+          const toolCallId = generateId();
+          const speakers = await getSpeakers();
+          const speaker = speakers.find((speaker) => speaker.fullName === name);
+
+          yield <p>Getting the speaker</p>;
+          history.done([
+            ...(history.get() as CoreMessage[]),
+            {
+              role: "assistant",
+              content: [
+                {
+                  type: "text",
+                  text: "showing speaker on the screen",
+                },
+              ],
+            },
+            {
+              role: "tool",
+              content: [
+                {
+                  type: "tool-result",
+                  toolCallId,
+                  toolName: "showSpeaker",
+                  result: "showing speaker on the screen",
+                },
+              ],
+            },
+          ]);
+          return (
+            <div className="">
+              {speaker ? (
+                <SpeakersCard speaker={speaker} key={speaker.id} />
+              ) : (
+                <p>{`No speaker found with the name ${name}`}</p>
+              )}
+            </div>
+          );
+        },
+      },
     },
   });
 

@@ -25,3 +25,11 @@ export const getSpeakers = async (): Promise<Speaker[]> => {
   const speakers = await response.json();
   return speakers;
 };
+
+export const getSpeaker = async (id: string): Promise<Speaker> => {
+  const response = await fetch(
+    `https://sessionize.com/api/v2/d899srzm/view/Speakers/${id}`
+  );
+  const speaker = await response.json();
+  return speaker;
+};

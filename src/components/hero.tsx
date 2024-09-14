@@ -11,8 +11,10 @@ import { ClientMessage } from "@/app/(ai)/actions";
 
 export function Hero() {
   const { sendMessage } = useActions();
+  console.log(sendMessage);
   const [conversation, setConversation] = useUIState();
   const { continueConversation } = useActions();
+  console.log(continueConversation);
   const [input, setInput] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +40,11 @@ export function Hero() {
     useScrollToBottom<HTMLDivElement>();
 
   const suggestedActions = [
+    {
+      title: "Speakers",
+      label: "Who are the speakers?",
+      action: "Show speakers",
+    },
     {
       title: "Register",
       label: "Register for Rendercon",
