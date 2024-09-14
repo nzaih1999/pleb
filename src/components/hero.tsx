@@ -8,9 +8,11 @@ import { motion } from "framer-motion";
 import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import { generateId } from "ai";
 import { ClientMessage } from "@/app/(ai)/actions";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 export function Hero() {
   const { sendMessage } = useActions();
+  const { isLoaded, isSignedIn, user } = useUser();
   console.log(sendMessage);
   const [conversation, setConversation] = useUIState();
   const { continueConversation } = useActions();
@@ -39,28 +41,43 @@ export function Hero() {
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>();
 
-  const suggestedActions = [
-    {
-      title: "Speakers",
-      label: "Who are the speakers?",
-      action: "Show speakers",
-    },
-    {
-      title: "Register",
-      label: "Register for Rendercon",
-      action: "Register for Rendercon",
-    },
-    {
-      title: "When",
-      label: "When is rendercon?",
-      action: "Show dates for rendercon",
-    },
-    {
-      title: "Sign in",
-      label: "Sign in to Rendercon",
-      action: "Show the sign in button",
-    },
-  ];
+  const suggestedActions =
+    isLoaded && isSignedIn
+      ? [
+          {
+            title: "Speakers",
+            label: "Who are the speakers?",
+            action: "Show speakers",
+          },
+          {
+            title: "Register",
+            label: "Register for Rendercon",
+            action: "Register for Rendercon",
+          },
+          {
+            title: "When",
+            label: "When is rendercon?",
+            action: "Show dates for rendercon",
+          },
+        ]
+      : [
+          {
+            title: "Sign in",
+            label: "Sign in to Rendercon",
+            action: "Show the sign in button",
+          },
+
+          {
+            title: "When",
+            label: "When is rendercon?",
+            action: "Show dates for rendercon",
+          },
+          {
+            title: "Speakers",
+            label: "Who are the speakers?",
+            action: "Show speakers",
+          },
+        ];
 
   return (
     <div className="flex flex-row justify-center py-20 h-dvh bg-white dark:bg-zinc-900">

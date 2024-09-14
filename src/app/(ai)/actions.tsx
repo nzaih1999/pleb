@@ -12,6 +12,8 @@ import SignUpButton from "@/components/sign-up-button";
 import { getSpeakers } from "@/lib/speakers";
 
 import { SpeakersCard } from "@/components/expandable-card";
+import { checkSocialCard } from "@/lib/actions";
+import NotSignedIn from "@/components/register-not-signed";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -87,7 +89,9 @@ export async function continueConversation(
           .describe("Show the registration form for rendercon"),
         generate: async function* () {
           const toolCallId = generateId();
+
           yield <p>Getting the registration form for rendercon</p>;
+          const user = await currentUser();
 
           history.done([
             ...(history.get() as CoreMessage[]),
@@ -114,17 +118,24 @@ export async function continueConversation(
             },
           ]);
 
-          return <SocialCardForm />;
+          if (!user) {
+            return <NotSignedIn />;
+          }
+          if (user) {
+            const userWithSocialCard = await checkSocialCard();
+            if (userWithSocialCard) {
+              return <SocialCardForm userWithSocialCard={userWithSocialCard} />;
+            }
+          }
         },
       },
       showSignInButton: {
         description: "Show the sign in button",
         parameters: z.object({}).describe("Show the sign in button"),
         generate: async function* () {
+          yield <p>Getting the sign in button</p>;
           const user = await currentUser();
           const toolCallId = generateId();
-
-          yield <p>Getting the sign in button</p>;
 
           history.done([
             ...(history.get() as CoreMessage[]),
@@ -153,16 +164,16 @@ export async function continueConversation(
           if (user) {
             return <p>User is signed in</p>;
           } else {
-            return <SignUpButton />;
+            return <NotSignedIn />;
           }
         },
       },
       showSpeakers: {
         parameters: z.object({}).describe("Show the speakers"),
         generate: async function* () {
+          yield <p>Getting the speakers</p>;
           const toolCallId = generateId();
           const speakers = await getSpeakers();
-          yield <p>Getting the speakers</p>;
 
           history.done([
             ...(history.get() as CoreMessage[]),

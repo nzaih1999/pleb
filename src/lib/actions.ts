@@ -4,6 +4,7 @@ import { z } from "zod";
 import { actionClient } from "./safe-actions";
 import { auth } from "@clerk/nextjs/server";
 import { prisma } from "./prisma";
+import { SocialCard, User } from "@prisma/client";
 
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -79,3 +80,25 @@ export const registerForm = actionClient
       return { success: true, socialCard };
     }
   );
+
+export const checkSocialCard = async (): Promise<SocialCard> => {
+  const { userId } = auth();
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      clerkId: userId,
+    },
+    include: {
+      socialCard: true,
+    },
+  });
+
+  if (!user?.socialCard) {
+    throw new Error("User not found");
+  }
+
+  return user.socialCard;
+};

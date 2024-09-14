@@ -1,3 +1,5 @@
+import { SocialCard, User } from "@prisma/client";
+
 export interface Speaker {
   id: string;
   firstName: string;
@@ -32,4 +34,10 @@ export const getSpeaker = async (id: string): Promise<Speaker> => {
   );
   const speaker = await response.json();
   return speaker;
+};
+
+type UserWithSocialCard = {
+  user: User & {
+    socialCard: SocialCard;
+  };
 };

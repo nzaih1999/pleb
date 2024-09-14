@@ -6,7 +6,7 @@ type BadgeProps = {
   color: "purple";
 };
 
-const Badge = ({ name, role, color }: BadgeProps) => {
+export const Badge = ({ name, role, color }: BadgeProps) => {
   const bgColor = {
     purple: "bg-purple-600",
   }[color];
@@ -50,7 +50,7 @@ const Badge = ({ name, role, color }: BadgeProps) => {
   );
 };
 
-export default function EventBadge() {
+export function EventBadge() {
   return (
     <div className="flex space-x-4 pt-16">
       <Badge name="Alex Krivov" role="Speaker" color="purple" />
