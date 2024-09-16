@@ -32,7 +32,6 @@ const registrationSchema = z.object({
   companyName: z.string().min(2, "Company name must be at least 2 characters."),
   profession: z.string().min(2, "Profession must be at least 2 characters."),
   email: z.string().email("Please enter a valid email address."),
-  website: z.string().url("Please enter a valid URL."),
 });
 
 type RegistrationSchema = z.infer<typeof registrationSchema>;
@@ -52,7 +51,6 @@ export function SocialCardForm({
       companyName: "",
       profession: "",
       email: "",
-      website: "",
     },
   });
 
@@ -205,29 +203,7 @@ export function SocialCardForm({
                   </FormItem>
                 )}
               />
-              <FormField
-                control={form.control}
-                name="website"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-xs uppercase tracking-wider">
-                      COMPANY_WEBSITE
-                    </FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Input
-                          {...field}
-                          type="url"
-                          placeholder="https://acme.com"
-                          className="h-12 bg-gray-800 border-2 border-purple-500 rounded-none text-purple-500 placeholder-green-700 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                        />
-                        <div className="absolute right-2 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-purple-500 animate-pulse" />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
               <Button
                 type="submit"
                 className="w-full h-12 bg-purple-600 hover:bg-purple-700 text-black rounded-none uppercase tracking-wider transition-all duration-300 ease-in-out transform hover:scale-105 relative group/btn"

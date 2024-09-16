@@ -12,7 +12,6 @@ const formSchema = z.object({
   companyName: z.string().min(1, "Company name is required"),
   profession: z.string().min(1, "Profession is required"),
   email: z.string().email("Invalid email address"),
-  website: z.string().url("Invalid URL"),
 });
 
 const userSchema = z.object({
@@ -29,14 +28,7 @@ export const registerForm = actionClient
   .schema(formSchema)
   .action(
     async ({
-      parsedInput: {
-        companyName,
-        email,
-        firstName,
-        lastName,
-        profession,
-        website,
-      },
+      parsedInput: { companyName, email, firstName, lastName, profession },
     }) => {
       const { userId } = auth();
       if (!userId) {
@@ -66,14 +58,12 @@ export const registerForm = actionClient
           email,
           name: `${firstName} ${lastName}`,
           profession: profession,
-          website,
         },
         update: {
           companyName,
           email,
           name: `${firstName} ${lastName}`,
           profession: profession,
-          website,
         },
       });
 
@@ -96,9 +86,5 @@ export const checkSocialCard = async (): Promise<SocialCard> => {
     },
   });
 
-  if (!user?.socialCard) {
-    throw new Error("User not found");
-  }
-
-  return user.socialCard;
+  return user?.socialCard!;
 };

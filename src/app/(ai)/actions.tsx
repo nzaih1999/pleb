@@ -6,14 +6,16 @@ import { z } from "zod";
 import { CoreMessage, generateId } from "ai";
 import DateTime from "@/components/dates-card";
 import { SocialCardForm } from "@/components/social-card-form";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
-import SignUpButton from "@/components/sign-up-button";
 import { getSpeakers } from "@/lib/speakers";
 
 import { SpeakersCard } from "@/components/expandable-card";
 import { checkSocialCard } from "@/lib/actions";
 import NotSignedIn from "@/components/register-not-signed";
+import { Badge } from "@/components/event-badge";
+import { Loader } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -60,7 +62,12 @@ export async function continueConversation(
         description: "Get the dates when rendercon is happening",
         parameters: z.object({}).describe("Get the date of RenderCon"),
         generate: async function* () {
-          yield <p>Getting the dates for RenderCon</p>;
+          yield (
+            <p className="flex">
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+              loading{" "}
+            </p>
+          );
           const renderConDates = {
             startDate: "october 4, 2024",
             endDate: "october 5, 2024",
@@ -90,7 +97,12 @@ export async function continueConversation(
         generate: async function* () {
           const toolCallId = generateId();
 
-          yield <p>Getting the registration form for rendercon</p>;
+          yield (
+            <p className="flex">
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+              loading{" "}
+            </p>
+          );
           const user = await currentUser();
 
           history.done([
@@ -119,13 +131,10 @@ export async function continueConversation(
           ]);
 
           if (!user) {
-            return <NotSignedIn />;
+            return <SignUpButton />;
           }
           if (user) {
-            const userWithSocialCard = await checkSocialCard();
-            if (userWithSocialCard) {
-              return <SocialCardForm userWithSocialCard={userWithSocialCard} />;
-            }
+            return <SocialCardForm />;
           }
         },
       },
@@ -133,7 +142,12 @@ export async function continueConversation(
         description: "Show the sign in button",
         parameters: z.object({}).describe("Show the sign in button"),
         generate: async function* () {
-          yield <p>Getting the sign in button</p>;
+          yield (
+            <p className="flex">
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+              loading{" "}
+            </p>
+          );
           const user = await currentUser();
           const toolCallId = generateId();
 
@@ -164,14 +178,19 @@ export async function continueConversation(
           if (user) {
             return <p>User is signed in</p>;
           } else {
-            return <NotSignedIn />;
+            return <SignUpButton />;
           }
         },
       },
       showSpeakers: {
         parameters: z.object({}).describe("Show the speakers"),
         generate: async function* () {
-          yield <p>Getting the speakers</p>;
+          yield (
+            <p className="flex">
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+              loading{" "}
+            </p>
+          );
           const toolCallId = generateId();
           const speakers = await getSpeakers();
 
@@ -216,7 +235,12 @@ export async function continueConversation(
           const speakers = await getSpeakers();
           const speaker = speakers.find((speaker) => speaker.fullName === name);
 
-          yield <p>Getting the speaker</p>;
+          yield (
+            <p className="flex">
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+              loading{" "}
+            </p>
+          );
           history.done([
             ...(history.get() as CoreMessage[]),
             {
@@ -249,6 +273,61 @@ export async function continueConversation(
               )}
             </div>
           );
+        },
+      },
+      showSocialCard: {
+        parameters: z
+          .object({})
+          .describe("Show the registration form for rendercon"),
+        generate: async function* () {
+          yield (
+            <p className="flex">
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+              loading{" "}
+            </p>
+          );
+          const toolCallId = generateId();
+          const user = await currentUser();
+
+          const userNumber = await prisma.user.findFirst({
+            where: {
+              clerkId: user?.id,
+            },
+          });
+
+          const userWithSocialCard = await checkSocialCard();
+          if (userWithSocialCard) {
+            history.done([
+              ...(history.get() as CoreMessage[]),
+              {
+                role: "assistant",
+                content: [
+                  {
+                    type: "text",
+                    text: "show the social card on the screen",
+                  },
+                ],
+              },
+              {
+                role: "tool",
+                content: [
+                  {
+                    type: "tool-result",
+                    toolCallId,
+                    toolName: "showSocialCard",
+                    result: "show the social card on the screen",
+                  },
+                ],
+              },
+            ]);
+            return (
+              <div className="flex space-x-4 pt-16">
+                <Badge user={userWithSocialCard} number={userNumber?.number} />
+              </div>
+            );
+          } else {
+            return <p>No user with social card</p>;
+          }
         },
       },
     },

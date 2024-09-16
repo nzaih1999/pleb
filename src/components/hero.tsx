@@ -52,7 +52,7 @@ export function Hero() {
           {
             title: "Register",
             label: "Register for Rendercon",
-            action: "Register for Rendercon",
+            action: "Show the registration form for rendercon",
           },
           {
             title: "When",

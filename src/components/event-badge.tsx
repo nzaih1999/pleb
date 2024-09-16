@@ -1,16 +1,16 @@
+import { SocialCard } from "@prisma/client";
 import { QrCode } from "lucide-react";
+import Image from "next/image";
 
-type BadgeProps = {
-  name: string;
-  role: string;
-  color: "purple";
-};
+type BadgeProps = {};
 
-export const Badge = ({ name, role, color }: BadgeProps) => {
-  const bgColor = {
-    purple: "bg-purple-600",
-  }[color];
-
+export const Badge = ({
+  user,
+  number,
+}: {
+  user: SocialCard;
+  number?: number;
+}) => {
   return (
     <div className="relative">
       <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-20 h-16 bg-black flex items-center justify-center">
@@ -24,23 +24,34 @@ export const Badge = ({ name, role, color }: BadgeProps) => {
 
       {/* Badge */}
       <div
-        className={`w-64 h-96 ${bgColor} rounded-lg shadow-lg overflow-hidden flex flex-col text-white`}
+        className={`w-64 h-96 bg-purple-600 rounded-lg shadow-lg overflow-hidden flex flex-col text-white`}
       >
         <div className="p-4 flex-grow">
           <div className="text-sm font-mono mb-4">
-            IT / TRANS
+            RENDER
             <br />
-            FORMATION
+            CON
             <br />
-            DAY___
+            &apos;24
           </div>
           <div className="w-6 h-6 border-2 rounded-full mb-8" />
-          <div className="text-2xl font-bold mb-1">{name.toUpperCase()}</div>
-          <div className="text-sm font-mono">{role.toUpperCase()}</div>
+          <div className="text-2xl font-bold mb-1">
+            {user.name?.toUpperCase()}
+          </div>
+          <div className="text-sm font-mono">
+            {user.profession?.toUpperCase()}
+          </div>
+          <div className="text-xs text-gray-800">{user.companyName}</div>
         </div>
-        <div className="bg-gray-800 p-4 flex justify-between items-center">
-          <QrCode className="w-12 h-12 text-white" />
-          <div className="text-white text-xs font-mono">DDMMYY</div>
+        <div className="bg-gray-800  flex justify-between items-center py-6">
+          <Image
+            height={100}
+            width={100}
+            src={`/Rendercon-wb.png`}
+            className="object-cover"
+            alt="logo for rendercon"
+          />
+          <div className="text-accent text-xs font-mono p-4">{number}</div>
         </div>
       </div>
 
@@ -49,11 +60,3 @@ export const Badge = ({ name, role, color }: BadgeProps) => {
     </div>
   );
 };
-
-export function EventBadge() {
-  return (
-    <div className="flex space-x-4 pt-16">
-      <Badge name="Alex Krivov" role="Speaker" color="purple" />
-    </div>
-  );
-}

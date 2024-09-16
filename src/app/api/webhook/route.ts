@@ -34,12 +34,16 @@ export async function POST(req: Request) {
           where: {
             clerkId: clerkUserId,
           },
+          include: {
+            socialCard: true,
+          },
         });
         break;
       }
       default:
         break;
     }
+    console.log(user);
 
     return NextResponse.json({ user });
   } catch (error) {
