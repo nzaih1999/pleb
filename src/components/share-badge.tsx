@@ -1,22 +1,18 @@
 "use client";
-import { SocialCard } from "@prisma/client";
-import { QrCode } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import React from "react";
 import { motion } from "framer-motion";
+import { SocialCard } from "@prisma/client";
+import Link from "next/link";
+import Image from "next/image";
 
-type BadgeProps = {};
-
-export const Badge = ({
-  user,
-  number,
-}: {
+type Props = {
   user: SocialCard;
   number?: number;
-}) => {
+};
+const ShareBadge = ({ user, number }: Props) => {
   return (
     <motion.div
-      className=""
+      className="flex space-x-4 pt-16"
       initial={{ y: -200 }}
       animate={{ y: 0 }}
       transition={{
@@ -74,13 +70,8 @@ export const Badge = ({
         {/* Badge Clip */}
         <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-black rounded-b-lg" />
       </div>
-
-      <div className=" mt-10">
-        <Link href={`/share/${user.userId}/opengraph-image`}>
-          Download Image
-        </Link>
-        <Link href={`/share/${user.userId}`}>View</Link>
-      </div>
     </motion.div>
   );
 };
+
+export default ShareBadge;

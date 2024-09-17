@@ -7,7 +7,7 @@ import {
 const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/forum(.*)"]);
 
 export default authMiddleware({
-  publicRoutes: ["/", "/api/webhook"],
+  publicRoutes: ["/", "/share(.*)", "/api/webhook"],
 });
 
 export const config = {

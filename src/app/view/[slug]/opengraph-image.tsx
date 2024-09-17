@@ -18,9 +18,14 @@ export default async function Image({ params }: { params: { slug: string } }) {
     new URL("./Rendercon-wb.png", import.meta.url)
   ).then((res) => res.arrayBuffer());
   // Dummy data for preview
+  const userId = auth().userId;
 
-  const user = await prisma.user.findFirst({
-    where: { id: params.slug },
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { clerkId: userId },
     include: {
       socialCard: true,
     },
@@ -140,9 +145,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                 fontSize: "12px",
               }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                //   @ts-ignore
                 src={logoSrc}
                 alt="Clerk"
                 style={{
@@ -153,12 +156,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               />
             </div>
             <div
-              style={{
-                display: "flex",
-                color: "#9333ea",
-                fontSize: "20px",
-                fontFamily: "sans-serif",
-              }}
+              style={{ display: "flex", color: "#9333ea", fontSize: "20px" }}
             >
               #{user?.number.toString().padStart(3, "0")}
             </div>
@@ -168,7 +166,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
           <div
             style={{
               position: "absolute",
-
               bottom: "-16px",
               left: "50%",
               transform: "translateX(-50%)",

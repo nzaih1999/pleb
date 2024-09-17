@@ -50,8 +50,8 @@ export function Hero() {
             action: "Show speakers",
           },
           {
-            title: "Register",
-            label: "Register for Rendercon",
+            title: "Create",
+            label: "Create your card",
             action: "Show the registration form for rendercon",
           },
           {
@@ -80,7 +80,7 @@ export function Hero() {
         ];
 
   return (
-    <div className="flex flex-row justify-center py-20 h-dvh bg-white dark:bg-zinc-900">
+    <div className="flex flex-row justify-center py-20 h-dvh bg-black dark:bg-zinc-900">
       <div className="flex flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
@@ -126,12 +126,12 @@ export function Hero() {
                       response,
                     ]);
                   }}
-                  className="w-full text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors flex flex-col"
+                  className="w-full text-left border border-zinc-800  text-zinc-300 rounded-lg p-2 text-sm  hover:bg-zinc-800 transition-colors flex flex-col"
                 >
-                  <span className="font-medium">{action.title}</span>
-                  <span className="text-zinc-500 dark:text-zinc-400">
-                    {action.label}
+                  <span className="font-medium text-purple-500">
+                    {action.title}
                   </span>
+                  <span className="text-zinc-400">{action.label}</span>
                 </button>
               </motion.div>
             ))}

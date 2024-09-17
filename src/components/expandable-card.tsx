@@ -58,7 +58,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
             <motion.div
               layoutId={`card-${speaker.id}-${id}`}
               ref={ref}
-              className="w-full max-w-[900px] flex flex-col lg:flex-row bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
+              className="w-full max-w-[900px] flex flex-col lg:flex-row bg-neutral-900 sm:rounded-3xl overflow-hidden"
             >
               <motion.div
                 layoutId={`image-${speaker.id}-${id}`}
@@ -78,7 +78,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
                 <div className="p-4">
                   <motion.h3
                     layoutId={`name-${speaker.id}-${id}`}
-                    className="font-medium text-neutral-700 dark:text-neutral-200 text-xl mb-2"
+                    className="font-medium text-neutral-200 text-xl mb-2"
                   >
                     {speaker.fullName}
                     {speaker.isTopSpeaker && (
@@ -89,32 +89,29 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
                   </motion.h3>
                   <motion.p
                     layoutId={`tagline-${speaker.id}-${id}`}
-                    className="text-neutral-600 dark:text-neutral-400 text-base mb-4"
+                    className="text-neutral-400 text-base mb-4"
                   >
                     {speaker.tagLine}
                   </motion.p>
-                  <h4 className="font-medium text-neutral-700 dark:text-neutral-200 text-lg mb-2">
+                  <h4 className="font-medium text-neutral-200 text-lg mb-2">
                     Bio
                   </h4>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-base mb-4">
+                  <p className="text-neutral-400 text-base mb-4">
                     {speaker.bio}
                   </p>
-                  <h4 className="font-medium text-neutral-700 dark:text-neutral-200 text-lg mb-2">
+                  <h4 className="font-medium text-neutral-200 text-lg mb-2">
                     Sessions
                   </h4>
                   <ul className="list-disc pl-5 mb-4">
                     {speaker.sessions.map((session) => (
-                      <li
-                        key={session.id}
-                        className="text-neutral-600 dark:text-neutral-400"
-                      >
+                      <li key={session.id} className="text-neutral-400">
                         {session.name}
                       </li>
                     ))}
                   </ul>
                   {speaker.links.length > 0 && (
                     <>
-                      <h4 className="font-medium text-neutral-700 dark:text-neutral-200 text-lg mb-2">
+                      <h4 className="font-medium text-neutral-200 text-lg mb-2">
                         Links
                       </h4>
                       <ul className="flex flex-wrap gap-2">
@@ -141,7 +138,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
           <motion.div
             layoutId={`card-${speaker.id}-${id}`}
             onClick={() => setActive(true)}
-            className="p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer max-w-2xl mx-auto w-full"
+            className="p-4 flex flex-col hover:bg-neutral-800 bg-neutral-900 my-4 rounded-xl cursor-pointer max-w-2xl mx-auto w-full"
           >
             <div className="flex gap-4 flex-col w-full">
               <motion.div layoutId={`image-${speaker.id}-${id}`}>
@@ -156,7 +153,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
               <div className="flex justify-center items-center flex-col">
                 <motion.h3
                   layoutId={`name-${speaker.id}-${id}`}
-                  className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left text-xl"
+                  className="font-medium text-neutral-200 text-center md:text-left text-xl"
                 >
                   {speaker.fullName}
                   {speaker.isTopSpeaker && (
@@ -167,7 +164,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
                 </motion.h3>
                 <motion.p
                   layoutId={`tagline-${speaker.id}-${id}`}
-                  className="text-neutral-600 dark:text-neutral-400 text-center md:text-left text-base mt-2"
+                  className="text-neutral-400 text-center md:text-left text-base mt-2"
                 >
                   {speaker.tagLine}
                 </motion.p>
