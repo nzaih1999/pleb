@@ -6,13 +6,12 @@ import { z } from "zod";
 import { CoreMessage, generateId } from "ai";
 import DateTime from "@/components/dates-card";
 import { SocialCardForm } from "@/components/social-card-form";
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
+import { SignUpButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { getSpeakers } from "@/lib/speakers";
 
 import { SpeakersCard } from "@/components/expandable-card";
 import { checkSocialCard } from "@/lib/actions";
-import NotSignedIn from "@/components/register-not-signed";
 import { Badge } from "@/components/event-badge";
 import { Loader } from "lucide-react";
 import { prisma } from "@/lib/prisma";
@@ -22,13 +21,13 @@ const groq = createOpenAI({
   apiKey: process.env.GROQ_API_KEY,
 });
 export interface ServerMessage {
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "function";
   content: string;
 }
 
 export interface ClientMessage {
   id: string;
-  role: "user" | "assistant";
+  role: "user" | "assistant" | "function";
   display: ReactNode;
 }
 
@@ -278,7 +277,7 @@ export async function continueConversation(
       showSocialCard: {
         parameters: z
           .object({})
-          .describe("Show the registration form for rendercon"),
+          .describe("Show the user social card for rendercon"),
         generate: async function* () {
           yield (
             <p className="flex">
@@ -304,7 +303,7 @@ export async function continueConversation(
                 content: [
                   {
                     type: "text",
-                    text: "show the social card on the screen",
+                    text: "show the user social card on the screen",
                   },
                 ],
               },
@@ -344,6 +343,7 @@ export const AI = createAI<ServerMessage[], ClientMessage[]>({
   actions: {
     continueConversation,
   },
+  onSetAIState: ({ state, done }) => {},
   initialAIState: [],
   initialUIState: [],
 });

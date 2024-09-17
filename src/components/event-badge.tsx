@@ -1,6 +1,7 @@
 import { SocialCard } from "@prisma/client";
 import { QrCode } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 type BadgeProps = {};
 
@@ -12,51 +13,57 @@ export const Badge = ({
   number?: number;
 }) => {
   return (
-    <div className="relative">
-      <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-20 h-16 bg-black flex items-center justify-center">
+    <div className="">
+      <div className="relative">
+        <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 w-20 h-16 bg-black flex items-center justify-center">
+          <div
+            className="text-white text-xs font-mono rotate-180"
+            style={{ writingMode: "vertical-rl" }}
+          >
+            RENDER CON &apos;24
+          </div>
+        </div>
+
+        {/* Badge */}
         <div
-          className="text-white text-xs font-mono rotate-180"
-          style={{ writingMode: "vertical-rl" }}
+          className={`w-64 h-96 bg-purple-600 rounded-lg shadow-lg overflow-hidden flex flex-col text-white`}
         >
-          RENDER CON &apos;24
+          <div className="p-4 flex-grow">
+            <div className="text-sm font-mono mb-4">
+              RENDER
+              <br />
+              CON
+              <br />
+              &apos;24
+            </div>
+            <div className="w-6 h-6 border-2 rounded-full mb-8" />
+            <div className="text-2xl font-bold mb-1">
+              {user.name?.toUpperCase()}
+            </div>
+            <div className="text-sm font-mono">
+              {user.profession?.toUpperCase()}
+            </div>
+            <div className="text-xs text-gray-800">{user.companyName}</div>
+          </div>
+          <div className="bg-gray-800  flex justify-between items-center py-6">
+            <Image
+              height={100}
+              width={100}
+              src={`/Rendercon-wb.png`}
+              className="object-cover"
+              alt="logo for rendercon"
+            />
+            <div className="text-purple-600 text-xl font-mono p-4">
+              #{number?.toString().padStart(3, "0")}
+            </div>
+          </div>
         </div>
+
+        {/* Badge Clip */}
+        <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-black rounded-b-lg" />
       </div>
 
-      {/* Badge */}
-      <div
-        className={`w-64 h-96 bg-purple-600 rounded-lg shadow-lg overflow-hidden flex flex-col text-white`}
-      >
-        <div className="p-4 flex-grow">
-          <div className="text-sm font-mono mb-4">
-            RENDER
-            <br />
-            CON
-            <br />
-            &apos;24
-          </div>
-          <div className="w-6 h-6 border-2 rounded-full mb-8" />
-          <div className="text-2xl font-bold mb-1">
-            {user.name?.toUpperCase()}
-          </div>
-          <div className="text-sm font-mono">
-            {user.profession?.toUpperCase()}
-          </div>
-          <div className="text-xs text-gray-800">{user.companyName}</div>
-        </div>
-        <div className="bg-gray-800  flex justify-between items-center py-6">
-          <Image
-            height={100}
-            width={100}
-            src={`/Rendercon-wb.png`}
-            className="object-cover"
-            alt="logo for rendercon"
-          />
-          <div className="text-accent text-xs font-mono p-4">{number}</div>
-        </div>
-      </div>
-
-      {/* Badge Clip */}
-      <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-black rounded-b-lg" />
+      <Link href={`/share/${user.userId}/opengraph-image`}>share</Link>
     </div>
   );
 };
