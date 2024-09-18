@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+
+
+Allow: /share/*
+
+
+
+
+Sitemap: https://www.example.com/sitemap.xml
