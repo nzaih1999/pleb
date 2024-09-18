@@ -1,12 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalTrigger,
-} from "./modal";
+import { Modal, ModalBody, ModalContent, ModalTrigger } from "./modal";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Speaker } from "@/lib/speakers";

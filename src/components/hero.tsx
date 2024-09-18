@@ -49,11 +49,7 @@ export function Hero() {
             label: "Who are the speakers?",
             action: "Show speakers",
           },
-          {
-            title: "Create",
-            label: "Create your card",
-            action: "Show the registration form for rendercon",
-          },
+
           {
             title: "When",
             label: "When is rendercon?",
@@ -98,44 +94,46 @@ export function Hero() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="grid  sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] mb-4 z-10 ">
-          {conversation.length === 0 &&
-            suggestedActions.map((action, index) => (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.01 * index }}
-                key={index}
-                className={"sm:block"}
-              >
-                <button
-                  onClick={async () => {
-                    setConversation((messages: ClientMessage[]) => [
-                      ...messages,
-                      {
-                        id: generateId(),
-                        role: "user",
-                        display: action.action,
-                      },
-                    ]);
-                    const response: ReactNode = await continueConversation(
-                      action.action
-                    );
-                    setConversation((messages: ClientMessage[]) => [
-                      ...messages,
-                      response,
-                    ]);
-                  }}
-                  className="w-full text-left border border-zinc-800  text-zinc-300 rounded-lg p-2 text-sm  hover:bg-zinc-800 transition-colors flex flex-col"
+        {isLoaded && (
+          <div className="grid  sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] mb-4 z-10 ">
+            {conversation.length === 0 &&
+              suggestedActions.map((action, index) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.01 * index }}
+                  key={index}
+                  className={"sm:block"}
                 >
-                  <span className="font-medium text-purple-500">
-                    {action.title}
-                  </span>
-                  <span className="text-zinc-400">{action.label}</span>
-                </button>
-              </motion.div>
-            ))}
-        </div>
+                  <button
+                    onClick={async () => {
+                      setConversation((messages: ClientMessage[]) => [
+                        ...messages,
+                        {
+                          id: generateId(),
+                          role: "user",
+                          display: action.action,
+                        },
+                      ]);
+                      const response: ReactNode = await continueConversation(
+                        action.action
+                      );
+                      setConversation((messages: ClientMessage[]) => [
+                        ...messages,
+                        response,
+                      ]);
+                    }}
+                    className="w-full text-left border border-zinc-800  text-zinc-300 rounded-lg p-2 text-sm  hover:bg-zinc-800 transition-colors flex flex-col"
+                  >
+                    <span className="font-medium text-purple-500">
+                      {action.title}
+                    </span>
+                    <span className="text-zinc-400">{action.label}</span>
+                  </button>
+                </motion.div>
+              ))}
+          </div>
+        )}
 
         <div className="flex flex-col gap-2 relative items-center">
           <PlaceholdersAndVanishInput

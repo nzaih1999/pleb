@@ -50,9 +50,7 @@ export const Message = ({
       </div>
 
       <div className="flex flex-col gap-1 w-full">
-        <div className="text-zinc-800 dark:text-zinc-300 flex flex-col gap-4">
-          {content}
-        </div>
+        <div className="text-zinc-300 flex flex-col gap-4">{content}</div>
       </div>
     </motion.div>
   );

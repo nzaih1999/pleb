@@ -36,18 +36,22 @@ const registrationSchema = z.object({
 
 type RegistrationSchema = z.infer<typeof registrationSchema>;
 
-export function SocialCardForm({}: {}) {
+export function UpdateDetails({
+  userWithSocialCard,
+}: {
+  userWithSocialCard?: SocialCard;
+}) {
   const { continueConversation } = useActions();
   const [_, setConversation] = useUIState();
   const [updatedDetails, setUpdatedDetails] = useState<boolean>(false);
   const form = useForm<RegistrationSchema>({
     resolver: zodResolver(registrationSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      companyName: "",
-      profession: "",
-      email: "",
+      firstName: userWithSocialCard?.name?.split(" ")[0] || "",
+      lastName: userWithSocialCard?.name?.split(" ")[1] || "",
+      companyName: userWithSocialCard?.companyName || "",
+      profession: userWithSocialCard?.profession || "",
+      email: userWithSocialCard?.email || "",
     },
   });
 
@@ -82,7 +86,7 @@ export function SocialCardForm({}: {}) {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCI+CiAgPHBhdGggZD0iTTAgMGg2MHY2MEgweiIgZmlsbD0ibm9uZSIgLz4KICA8cGF0aCBkPSJNMCAwdjYwaDYwVjBIMHptNTggNThIMlYyaDU2djU2eiIgZmlsbD0icmdiYSgwLCAyNTUsIDAsIDAuMDMpIiAvPgo8L3N2Zz4=')] bg-repeat" />
         <div className="relative z-10">
           <h1 className="text-2xl font-bold mb-6 cursor-pointer select-none">
-            REGISTER FOR RENDERCON
+            Update your details
           </h1>
           <p className="mb-6 text-sm">
             By entering your information, you acknowledge you have read our{" "}
@@ -255,12 +259,12 @@ export function SocialCardForm({}: {}) {
                     response,
                   ]);
                 }}
-                className="w-full text-left border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors flex flex-col"
+                className="w-full text-left border border-zinc-800  text-zinc-300 rounded-lg p-2 text-sm  hover:bg-zinc-800 transition-colors flex flex-col"
               >
-                <span className="font-medium">{action.title}</span>
-                <span className="text-purple-400 text-sm font-medium ">
-                  {action.label}
+                <span className="font-medium text-purple-500">
+                  {action.title}
                 </span>
+                <span className="text-zinc-400">{action.label}</span>
               </button>
             </motion.div>
           ))}

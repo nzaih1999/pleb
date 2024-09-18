@@ -1,18 +1,17 @@
 "use client";
-import { ClientMessage } from "@/app/(ai)/actions";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { generateId } from "ai";
+import { Speaker } from "@/lib/speakers";
+import React, { ReactNode } from "react";
+import { SpeakersCard } from "./expandable-card";
 import { useActions, useUIState } from "ai/rsc";
+import { ClientMessage } from "@/app/(ai)/actions";
+import { generateId } from "ai";
 import { motion } from "framer-motion";
-import { Calendar } from "lucide-react";
-import { ReactNode } from "react";
 
-interface RenderConCardProps {
-  startDate: string;
-  endDate: string;
+type SpeakersProps = {
+  speakers: Speaker[];
   userId?: string;
   socialCard?: boolean;
-}
+};
 
 const suggestedActions = [
   {
@@ -20,10 +19,11 @@ const suggestedActions = [
     label: "to create your ticket",
     action: "show the sign up button",
   },
+
   {
-    title: "who",
-    label: " see the speakers",
-    action: "Show the speakers",
+    title: "When",
+    label: "When is rendercon?",
+    action: "Show dates for rendercon",
   },
 ];
 
@@ -34,9 +34,9 @@ const loggedInActions = [
     action: "Show the registration form for rendercon",
   },
   {
-    title: "Speakers",
-    label: "Who are the speakers?",
-    action: "Show the speakers",
+    title: "When",
+    label: "When is rendercon?",
+    action: "Show dates for rendercon",
   },
 ];
 
@@ -51,55 +51,23 @@ const socialCardActions = [
     label: "view your ticket",
     action: "show my card",
   },
-
   {
-    title: "Speakers",
-    label: "Who are the speakers?",
-    action: "Show the speakers",
+    title: "When",
+    label: "When is rendercon?",
+    action: "Show dates for rendercon",
   },
 ];
 
-export default function DateTime({
-  startDate,
-  endDate,
-  userId,
-  socialCard,
-}: RenderConCardProps) {
+const Speakers = ({ speakers, socialCard, userId }: SpeakersProps) => {
   const { continueConversation } = useActions();
   const [_, setConversation] = useUIState();
 
   return (
-    <div>
-      <Card className="w-full max-w-md mx-auto bg-slate-900">
-        <CardHeader className="space-y-1">
-          <div className="flex items-center space-x-2">
-            <Calendar className="w-6 h-6 text-primary" />
-            <CardTitle className="text-2xl text-purple-500 font-bold">
-              RenderCon
-            </CardTitle>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="font-semibold text-sm text-muted-foreground">
-                Start Date:
-              </span>
-              <span className="text-xs text-purple-400">{startDate}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="font-semibold text-sm text-muted-foreground">
-                End Date:
-              </span>
-              <span className="text-xs text-purple-400">{endDate}</span>
-            </div>
-            <p className="text-sm text-muted-foreground mt-4">
-              Join us for exciting talks, workshops, and networking
-              opportunities!
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+    <div className="">
+      {speakers.map((speaker) => (
+        <SpeakersCard speaker={speaker} key={speaker.id} />
+      ))}
+
       <div className="grid sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] my-4 z-50">
         {(userId && socialCard
           ? socialCardActions
@@ -144,4 +112,6 @@ export default function DateTime({
       </div>
     </div>
   );
-}
+};
+
+export default Speakers;

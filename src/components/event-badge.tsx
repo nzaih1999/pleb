@@ -76,10 +76,10 @@ export const Badge = ({
       </div>
 
       <div className=" mt-10">
-        <Link href={`/share/${user.userId}/opengraph-image`}>
+        <Link href={`/view/${user.userId}/opengraph-image`}>
           Download Image
         </Link>
-        <Link href={`/share/${user.userId}`}>View</Link>
+        <Link href={`/view/${user.userId}`}>View</Link>
       </div>
     </motion.div>
   );

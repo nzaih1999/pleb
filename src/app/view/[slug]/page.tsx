@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Share2, Twitter } from "lucide-react";
+import SocialShareButtons from "@/components/copy-to-clipboard";
 
 type Params = {
   params: {
@@ -30,14 +31,10 @@ const Page = async ({ params }: Params) => {
               <span className="text-purple-500">6th</span>
             </h1>
 
-            <div className="flex justify-center md:justify-start gap-4 mb-8">
-              <Button className="bg-blue-500 hover:bg-blue-600">
-                <Share2 className="mr-2 h-4 w-4" /> SHARE
-              </Button>
-              <Button className="bg-blue-500 hover:bg-blue-600">
-                <Twitter className="mr-2 h-4 w-4" /> SHARE
-              </Button>
-            </div>
+            <SocialShareButtons
+              url={`http://localhost:3000/share/cm162j4t6000012rmmwhi6wfv`}
+              title="See you online/physical on October 5th&6th"
+            />
           </div>
           <div className="w-full md:w-1/2 flex items-center justify-center">
             <ShareBadge user={user?.socialCard} number={user?.number} />
