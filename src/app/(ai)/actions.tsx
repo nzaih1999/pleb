@@ -246,7 +246,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
                 {
                   type: "text",
                   text: "checking if user is signed in on the screen",
-                  args: { user },
+                  args: {},
                 },
               ],
             },
