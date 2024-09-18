@@ -63,9 +63,14 @@ export function UpdateDetails({
     },
 
     {
-      title: "Share",
-      label: "Share your card on 𝕏",
-      action: "Share your card",
+      title: "Speakers",
+      label: "Who are the speakers?",
+      action: "Show speakers",
+    },
+    {
+      title: "When",
+      label: "When is rendercon?",
+      action: "Show dates for rendercon",
     },
   ];
 
@@ -231,7 +236,7 @@ export function UpdateDetails({
           &copy; RenderCon v2.0.0
         </div>
       </div>
-      <div className="flex gap-4 my-4 items-center justify-center">
+      <div className="flex gap-4 mb-4 mt-6 items-center justify-center">
         {updatedDetails &&
           suggestedActions.map((action, index) => (
             <motion.div

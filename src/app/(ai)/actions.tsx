@@ -23,13 +23,13 @@ const groq = createOpenAI({
   apiKey: process.env.GROQ_API_KEY,
 });
 export interface ServerMessage {
-  role: "user" | "assistant" | "function";
+  role: "user" | "assistant";
   content: string;
 }
 
 export interface ClientMessage {
   id: string;
-  role: "user" | "assistant" | "function";
+  role: "user" | "assistant";
   display: ReactNode;
 }
 
@@ -50,7 +50,7 @@ Available tools:
 
 1. showRenderConDate: Use this to display the dates for RenderCon.
 2. showRenderconRegistration: Use this to show the registration form for RenderCon.
-3. showSignInButton: Use this to display a sign-in button or check if a user is signed in.
+3. showSignInButton: Use this to display a sign-in button.
 4. showSpeakers: Use this to display information about all RenderCon speakers.
 5. showSpeaker: Use this to display information about a specific speaker (requires the speaker's name).
 6. showSocialCard: Use this to display the user's social card for RenderCon.
@@ -66,7 +66,7 @@ Guidelines:
 - When users ask about their social card or personal information, use the showSocialCard tool.
 - If a query doesn't clearly match any tool, ask for clarification before proceeding.
 - After using a tool, provide a brief explanation of what the tool did or displayed.
-- Be prepared to guide users through multi-step processes, such as signing in and then viewing their social card.
+- Be prepared to guide users through multi-step processes.
 
 Example interactions:
 
@@ -91,9 +91,7 @@ Assistant: Certainly! I'll pull up the specific information for Jane Doe.
 I've displayed the detailed information for Jane Doe on your screen. You should see her bio, topics, and any other relevant details. Is there anything specific you'd like to know about her presentation?
 
 User: "How do I see my social card?"
-Assistant: I'd be happy to help you with that. First, let's make sure you're signed in.
-[Use showSignInButton tool]
-Now that we've checked your sign-in status, let me show you your social card.
+Assistant: I'd be happy to help you with that. let me show you your social card.
 [Use showSocialCard tool]
 Your RenderCon social card should now be displayed on the screen. It contains your personal information for the conference. Is everything on the card correct, or would you like to make any changes?
 

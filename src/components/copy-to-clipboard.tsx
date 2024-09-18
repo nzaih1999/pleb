@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { XIcon, Linkedin } from "lucide-react";
+import { XIcon, Linkedin, Twitter } from "lucide-react";
 
 const SocialShareButtons = ({ url, title }: { url: string; title: string }) => {
   const encodedUrl = encodeURIComponent(url);

@@ -1,9 +1,10 @@
 "use client";
 import { SocialCard } from "@prisma/client";
-import { QrCode } from "lucide-react";
+import { ImageIcon, QrCode } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { buttonVariants } from "./ui/button";
 
 type BadgeProps = {};
 
@@ -75,11 +76,17 @@ export const Badge = ({
         <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-black rounded-b-lg" />
       </div>
 
-      <div className=" mt-10">
-        <Link href={`/view/${user.userId}/opengraph-image`}>
+      <div className=" mt-10 flex items-center justify-center gap-4">
+        <Link
+          href={`/view/${user.userId}/opengraph-image`}
+          className={buttonVariants({})}
+        >
+          <ImageIcon className="mr-2 h-4 w-4" />
           Download Image
         </Link>
-        <Link href={`/view/${user.userId}`}>View</Link>
+        <Link href={`/view/${user.userId}`} className={buttonVariants({})}>
+          View
+        </Link>
       </div>
     </motion.div>
   );

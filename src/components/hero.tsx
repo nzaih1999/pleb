@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import { generateId } from "ai";
 import { ClientMessage } from "@/app/(ai)/actions";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 
 export function Hero() {
   const { sendMessage } = useActions();

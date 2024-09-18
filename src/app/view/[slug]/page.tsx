@@ -32,12 +32,12 @@ const Page = async ({ params }: Params) => {
             </h1>
 
             <SocialShareButtons
-              url={`http://localhost:3000/share/cm162j4t6000012rmmwhi6wfv`}
+              url={`/share/${params.slug}`}
               title="See you online/physical on October 5th&6th"
             />
           </div>
           <div className="w-full md:w-1/2 flex items-center justify-center">
-            <ShareBadge user={user?.socialCard} number={user?.number} />
+            <ShareBadge user={user?.socialCard!} number={user?.number} />
           </div>
         </div>
         <div className="text-sm">

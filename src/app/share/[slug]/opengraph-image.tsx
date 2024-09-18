@@ -24,8 +24,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
+  const user = await prisma.user.findFirst({
+    where: { id: params.slug },
     include: {
       socialCard: true,
     },

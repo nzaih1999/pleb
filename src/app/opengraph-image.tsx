@@ -1,6 +1,5 @@
 // app/open-graph.tsx
-import { prisma } from "@/lib/prisma";
-import { getAuth, auth } from "@clerk/nextjs/server";
+
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
@@ -18,18 +17,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
     new URL("./Rendercon-wb.png", import.meta.url)
   ).then((res) => res.arrayBuffer());
   // Dummy data for preview
-  const userId = auth().userId;
-
-  if (!userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
-    include: {
-      socialCard: true,
-    },
-  });
 
   return new ImageResponse(
     (
@@ -112,16 +99,14 @@ export default async function Image({ params }: { params: { slug: string } }) {
                 marginBottom: "4px",
               }}
             >
-              {user?.socialCard?.name}
+              Rendercon&apos;24
             </div>
             <div style={{ display: "flex", fontSize: "14px" }}>
-              {user?.socialCard?.profession}
+              October5th&apos;6th
             </div>
             <div
               style={{ display: "flex", fontSize: "12px", color: "#e5e7eb" }}
-            >
-              {user?.socialCard?.companyName}
-            </div>
+            ></div>
           </div>
 
           {/* Footer */}
@@ -159,7 +144,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             <div
               style={{ display: "flex", color: "#9333ea", fontSize: "20px" }}
             >
-              #{user?.number.toString().padStart(3, "0")}
+              #047
             </div>
           </div>
 

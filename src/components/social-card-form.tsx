@@ -1,6 +1,5 @@
 "use client";
-
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -22,7 +21,6 @@ import { Input } from "@/components/ui/input";
 import { registerForm } from "@/lib/actions";
 import { SquareArrowDownIcon } from "lucide-react";
 import { useActions, useUIState } from "ai/rsc";
-import { SocialCard } from "@prisma/client";
 import { ClientMessage } from "@/app/(ai)/actions";
 import { generateId } from "ai";
 
@@ -59,9 +57,14 @@ export function SocialCardForm({}: {}) {
     },
 
     {
-      title: "Share",
-      label: "Share your card on 𝕏",
-      action: "Share your card",
+      title: "Speakers",
+      label: "Who are the speakers?",
+      action: "Show speakers",
+    },
+    {
+      title: "When",
+      label: "When is rendercon?",
+      action: "Show dates for rendercon",
     },
   ];
 
