@@ -24,7 +24,7 @@ export const Badge = ({
         type: "spring",
         damping: 10,
         stiffness: 100,
-        duration: 1,
+        duration: 0.5,
       }}
     >
       <div className="relative">
