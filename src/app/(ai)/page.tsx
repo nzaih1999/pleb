@@ -1,9 +1,4 @@
-"use client";
 import { Hero } from "@/components/hero";
-import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
-import Image from "next/image";
-import { useState } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 

@@ -25,32 +25,6 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <head>
-          <title></title>
-          <meta name="description" content="" />
-
-          <meta property="og:url" content="https://rendercon-24.vercel.app/" />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content="" />
-          <meta property="og:description" content="" />
-          <meta
-            property="og:image"
-            content="https://rendercon-24.vercel.app/opengraph-image?d0b3bc3be349667d"
-          />
-
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta property="twitter:domain" content="rendercon-24.vercel.app" />
-          <meta
-            property="twitter:url"
-            content="https://rendercon-24.vercel.app/"
-          />
-          <meta name="twitter:title" content="" />
-          <meta name="twitter:description" content="" />
-          <meta
-            name="twitter:image"
-            content="https://rendercon-24.vercel.app/opengraph-image?d0b3bc3be349667d"
-          />
-        </head>
         <body className={GeistMono.className}>
           <AI>
             <main>
