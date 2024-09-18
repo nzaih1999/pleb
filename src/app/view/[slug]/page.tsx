@@ -40,48 +40,6 @@ const Page = async ({ params }: Params) => {
             <ShareBadge user={user?.socialCard!} number={user?.number} />
           </div>
         </div>
-        <div className="text-sm">
-          <ul className="space-y-2">
-            <li>
-              ADD NEXT.JS CONF TO YOUR CALENDAR ON{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                ICAL
-              </a>
-              ,{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                GOOGLE
-              </a>
-              , OR{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                OUTLOOK
-              </a>
-            </li>
-            <li>
-              NEED TO CHANGE YOUR DETAILS?{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                EDIT BADGE
-              </a>
-            </li>
-            <li>
-              WANT TO JOIN US IN-PERSON?{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                BUY A TICKET
-              </a>
-            </li>
-            <li>
-              LEARN HOW TO USE NEXT.JS{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                START LEARNING
-              </a>
-            </li>
-            <li>
-              READY TO GET STARTED WITH NEXT.JS & VERCEL{" "}
-              <a href="#" className="text-blue-500 hover:underline">
-                DEPLOY NOW
-              </a>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   );
