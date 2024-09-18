@@ -15,9 +15,9 @@ type SpeakersProps = {
 
 const suggestedActions = [
   {
-    title: "Sign Up",
-    label: "to create your ticket",
-    action: "show the sign up button",
+    title: "Sign in",
+    label: "Sign in to Rendercon",
+    action: "Show the sign in button",
   },
 
   {
