@@ -32,7 +32,7 @@ const Page = async ({ params }: Params) => {
             </h1>
 
             <SocialShareButtons
-              url={`/share/${params.slug}`}
+              url={`https://rendercon-24.vercel.app/share/${params.slug}`}
               title="See you online/physical on October 5th&6th"
             />
           </div>
