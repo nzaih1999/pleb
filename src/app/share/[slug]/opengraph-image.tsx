@@ -137,7 +137,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
                 marginBottom: "4px",
               }}
             >
-              {user?.socialCard?.name}&apos;s
+              {user?.socialCard?.name}
             </div>
             <div style={{ display: "flex", fontSize: "14px" }}>
               {user?.socialCard?.profession}
