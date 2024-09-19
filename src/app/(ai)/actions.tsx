@@ -17,6 +17,7 @@ import { Loader } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import Speakers from "@/components/speakers";
 import { UpdateDetails } from "@/components/update-details";
+import { Button } from "@/components/ui/button";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -263,10 +264,15 @@ Remember to always be helpful, clear, and guide the user through any processes t
               ],
             },
           ]);
+
           if (user) {
             return <p>User is signed in</p>;
           } else {
-            return <SignUpButton />;
+            return (
+              <SignUpButton>
+                <Button className="text-purple-600">Create your account</Button>
+              </SignUpButton>
+            );
           }
         },
       },

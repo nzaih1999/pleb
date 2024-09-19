@@ -6,6 +6,7 @@ import { AI } from "./(ai)/actions";
 import { GeistMono } from "geist/font/mono";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Metadata } from "next";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <body className={GeistMono.className}>
           <AI>
             <main>
+              <Navbar />
               {children}
               <BackgroundDots />
             </main>

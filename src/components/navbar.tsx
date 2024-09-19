@@ -22,7 +22,7 @@ export default function Navbar() {
   } = useSession();
 
   return (
-    <nav className=" bg-transparent backdrop-blur-sm transition-all border-b fixed w-full z-50 backdrop:blur-lg">
+    <nav className=" bg-transparent backdrop-blur-sm transition-all  fixed w-full z-50 backdrop:blur-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
@@ -31,26 +31,6 @@ export default function Navbar() {
                 <span className="text-2xl font-bold text-purple-500">
                   RenderCon&apos;24
                 </span>
-              </Link>
-            </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link
-                href="/"
-                className="border-transparent text-gray-500 hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="border-transparent text-gray-500 hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="border-transparent text-gray-500 hover:border-primary hover:text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Contact
               </Link>
             </div>
           </div>
@@ -63,30 +43,31 @@ export default function Navbar() {
                     className="relative h-8 w-8 rounded-full"
                   >
                     <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src="/placeholder.svg?height=32&width=32"
-                        alt="@user"
-                      />
+                      <AvatarImage src={user?.imageUrl} alt="@user" />
                       <AvatarFallback>U</AvatarFallback>
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuContent
+                  className="w-56 bg-black"
+                  align="end"
+                  forceMount
+                >
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        User Name
+                      <p className="text-sm font-medium leading-none text-slate-400">
+                        {user?.fullName}
                       </p>
-                      <p className="text-xs leading-none text-muted-foreground">
+                      <p className="text-xs leading-none text-slate-500">
                         {user?.emailAddresses[0].emailAddress}
                       </p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
+                    className="text-white"
                     onClick={() => signOut({ redirectUrl: "/" })}
                   >
                     Log out

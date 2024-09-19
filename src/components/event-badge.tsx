@@ -85,7 +85,7 @@ export const Badge = ({
           Download Image
         </Link>
         <Link href={`/view/${user.userId}`} className={buttonVariants({})}>
-          View
+          Share
         </Link>
       </div>
     </motion.div>

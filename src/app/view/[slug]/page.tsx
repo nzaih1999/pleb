@@ -22,7 +22,7 @@ const Page = async ({ params }: Params) => {
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto my-auto mt-20">
         <div className="w-full flex flex-col md:flex-row justify-between items-center mb-8 mx-auto">
           <div className="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <h1 className="md:text-5xl text-2xl font-bold mb-4">

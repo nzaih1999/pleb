@@ -13,13 +13,13 @@ const ShareBadge = ({ user, number }: Props) => {
   return (
     <motion.div
       className="flex space-x-4 pt-16"
-      initial={{ y: -200 }}
+      initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{
         type: "spring",
         damping: 10,
         stiffness: 100,
-        duration: 1,
+        duration: 0.3,
       }}
     >
       <div className="relative">

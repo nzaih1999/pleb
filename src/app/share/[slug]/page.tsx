@@ -44,7 +44,7 @@ const Page = async ({ params }: Params) => {
 
   return (
     <div className="min-h-screen bg-black text-white p-8 z-50">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto mt-20">
         <div className="w-full flex flex-col md:flex-row justify-between items-center mb-8 mx-auto">
           <div className="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <h1 className="md:text-5xl text-2xl font-bold mb-4">
@@ -54,9 +54,6 @@ const Page = async ({ params }: Params) => {
             </h1>
 
             <div className="flex justify-center md:justify-start gap-4 mb-8 z-50">
-              <Button className="bg-blue-500 hover:bg-blue-600">
-                <Share2 className="mr-2 h-4 w-4" /> SHARE
-              </Button>
               <Link
                 href="/"
                 className={buttonVariants({
