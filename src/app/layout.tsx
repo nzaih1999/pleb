@@ -10,6 +10,7 @@ import { Metadata } from "next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rendercon-24.vercel.app"),
   title: "Rendercon 2024",
   description: "Social cards for Rendercon 2024",
 };
