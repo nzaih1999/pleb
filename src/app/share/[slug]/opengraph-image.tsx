@@ -54,7 +54,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
               gap: "4px",
             }}
           >
-            {user?.firstName} {user?.lastName}
+            {user?.socialCard?.name}
           </div>
           <div
             style={{ fontSize: "24px", color: "#4b5563", marginTop: "10px" }}
