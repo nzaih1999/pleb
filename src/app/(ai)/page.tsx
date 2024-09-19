@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    metadataBase: new URL("https://rendercon-24.vercel.app"),
     title: "RenderCon 2024 Badge",
     description: "Preview of RenderCon 2024 Badge",
     openGraph: {
