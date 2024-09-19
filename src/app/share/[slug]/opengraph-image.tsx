@@ -5,10 +5,6 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 export const alt = "RenderCon 2024 Badge";
-export const size = {
-  width: 256,
-  height: 400,
-};
 
 export const contentType = "image/png";
 
@@ -39,8 +35,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
       >
         <div
           style={{
-            width: "256px",
-            height: "400px",
+            width: "512px",
+            height: "800px",
             display: "flex",
 
             flexDirection: "column",
@@ -176,7 +172,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
       </div>
     ),
     {
-      ...size,
+      height: 1200,
+      width: 630,
     }
   );
 }
