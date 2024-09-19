@@ -1,6 +1,5 @@
 // app/open-graph.tsx
 import { prisma } from "@/lib/prisma";
-import { getAuth, auth } from "@clerk/nextjs/server";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
@@ -18,11 +17,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
     new URL("./Rendercon-wb.png", import.meta.url)
   ).then((res) => res.arrayBuffer());
   // Dummy data for preview
-  const userId = auth().userId;
-
-  if (!userId) {
-    return new Response("Unauthorized", { status: 401 });
-  }
 
   const user = await prisma.user.findFirst({
     where: { id: params.slug },
