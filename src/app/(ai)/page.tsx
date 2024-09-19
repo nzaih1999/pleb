@@ -2,7 +2,6 @@ import { Hero } from "@/components/hero";
 import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 
-export const runtime = "edge";
 export async function generateMetadata({}: {}): Promise<Metadata> {
   return {
     metadataBase: new URL("https://rendercon-24.vercel.app"),

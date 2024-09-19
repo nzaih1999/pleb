@@ -5,12 +5,27 @@ import React from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Share2, Twitter } from "lucide-react";
 import Link from "next/link";
-
+import { Metadata } from "next";
+export const runtime = "edge";
 type Params = {
   params: {
     slug: string;
   };
 };
+
+export async function generateMetadata({}: {}): Promise<Metadata> {
+  return {
+    metadataBase: new URL("https://rendercon-24.vercel.app"),
+    title: "Rendercon 2024",
+    description: "Social cards for Rendercon 2024",
+    openGraph: {
+      description: "Social cards for Rendercon 2024",
+
+      title: "Rendercon 2024",
+      type: "article",
+    },
+  };
+}
 
 const Page = async ({ params }: Params) => {
   const user = await prisma.user.findFirst({
