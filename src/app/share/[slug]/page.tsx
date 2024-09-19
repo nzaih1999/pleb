@@ -6,7 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Share2, Twitter } from "lucide-react";
 import Link from "next/link";
 import { Metadata } from "next";
-export const runtime = "edge";
+
 type Params = {
   params: {
     slug: string;
