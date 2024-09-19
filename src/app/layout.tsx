@@ -10,21 +10,8 @@ import { Metadata } from "next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rendercon-24.vercel.app"),
-  openGraph: {
-    images: [
-      {
-        url: `https://rendercon-24.vercel.app/opengraph-image?af80a6e56ddfdc86`,
-      },
-    ],
-  },
-  twitter: {
-    images: [
-      {
-        url: `https://rendercon-24.vercel.app/opengraph-image?af80a6e56ddfdc86`,
-      },
-    ],
-  },
+  title: "Rendercon 2024",
+  description: "Social cards for Rendercon 2024",
 };
 
 export default function RootLayout({
