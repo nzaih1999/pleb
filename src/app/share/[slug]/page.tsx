@@ -13,15 +13,22 @@ type Params = {
   };
 };
 
-export async function generateMetadata({}: {}): Promise<Metadata> {
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const user = await prisma.user.findFirst({
+    where: { id: params.slug },
+    include: {
+      socialCard: true,
+    },
+  });
+
   return {
     metadataBase: new URL("https://rendercon-24.vercel.app"),
-    title: "Rendercon 2024",
-    description: "Social cards for Rendercon 2024",
+    title: `${user?.firstName} ${user?.lastName} Rendercon Ticket`,
+    description: "Ticket in ",
     openGraph: {
       description: "Social cards for Rendercon 2024",
 
-      title: "Rendercon 2024",
+      title: `${user?.firstName} ${user?.lastName} Rendercon Ticket`,
       type: "article",
     },
   };

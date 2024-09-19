@@ -12,7 +12,6 @@ export default async function Image({ params }: { params: { slug: string } }) {
   const logoSrc = await fetch(
     new URL("./Rendercon-wb.png", import.meta.url)
   ).then((res) => res.arrayBuffer());
-  // Dummy data for preview
 
   const user = await prisma.user.findFirst({
     where: { id: params.slug },
@@ -26,19 +25,55 @@ export default async function Image({ params }: { params: { slug: string } }) {
       <div
         style={{
           display: "flex",
-          position: "relative",
+          flexDirection: "row",
+          gap: "20px",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
-          width: "100vw",
+          height: "100%",
+          width: "100%",
+          backgroundColor: "#f3f4f6",
         }}
       >
+        {/* New div with large text */}
         <div
           style={{
-            width: "512px",
-            height: "800px",
             display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: "20px",
+            textAlign: "center",
+            fontFamily: "sans-serif",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "48px",
+              fontWeight: "bold",
+              color: "#9333ea",
+              display: "flex",
+              gap: "4px",
+            }}
+          >
+            {user?.firstName} {user?.lastName}
+          </div>
+          <div
+            style={{ fontSize: "24px", color: "#4b5563", marginTop: "10px" }}
+          >
+            is coming to RenderCon 2024
+          </div>
+          <div
+            style={{ fontSize: "36px", color: "#9333ea", marginTop: "10px" }}
+          >
+            On 5th and 6th October!
+          </div>
+        </div>
 
+        {/* Existing badge design */}
+        <div
+          style={{
+            width: "256px",
+            height: "400px",
+            display: "flex",
             flexDirection: "column",
             backgroundColor: "#9333ea",
             color: "white",
@@ -172,8 +207,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
       </div>
     ),
     {
-      height: 1200,
-      width: 630,
+      height: 630,
+      width: 1200,
     }
   );
 }
