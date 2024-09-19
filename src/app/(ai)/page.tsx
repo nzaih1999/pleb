@@ -2,18 +2,20 @@ import { Hero } from "@/components/hero";
 import Navbar from "@/components/navbar";
 import { Metadata } from "next";
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   return {
-    title: "RenderCon 2024 Badge",
-    description: "Preview of RenderCon 2024 Badge",
+    metadataBase: new URL("https://rendercon-24.vercel.app"),
+    title: "Rendercon 2024",
+    description: "Social cards for Rendercon 2024",
     openGraph: {
-      title: "RenderCon 2024 Badge",
-      description: "Preview of RenderCon 2024 Badge",
-      images: [
-        {
-          url: `https://rendercon-24.vercel.app/opengraph-image?af80a6e56ddfdc86`,
-        },
-      ],
+      description: "Social cards for Rendercon 2024",
+
+      title: "Rendercon 2024",
+      type: "article",
     },
   };
 }
