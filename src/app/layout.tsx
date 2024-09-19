@@ -1,21 +1,31 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
 import BackgroundDots from "@/components/backgrounds";
 import { AI } from "./(ai)/actions";
-import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
+import { ClerkProvider } from "@clerk/nextjs";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://rendercon-24.vercel.app"),
+  openGraph: {
+    images: [
+      {
+        url: `https://rendercon-24.vercel.app/opengraph-image?af80a6e56ddfdc86`,
+      },
+    ],
+  },
+  twitter: {
+    images: [
+      {
+        url: `https://rendercon-24.vercel.app/opengraph-image?af80a6e56ddfdc86`,
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
