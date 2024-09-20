@@ -1,6 +1,6 @@
 "use client";
 import { SocialCard } from "@prisma/client";
-import { ImageIcon, QrCode } from "lucide-react";
+import { ImageIcon, QrCode, Share, Share2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -78,6 +78,7 @@ export const Badge = ({
 
       <div className=" mt-10 flex items-center justify-center gap-4">
         <Link href={`/view/${user.userId}`} className={buttonVariants({})}>
+          <Share2 className="w-4 h-4 mr-2 text-purple-600" />
           Share
         </Link>
       </div>

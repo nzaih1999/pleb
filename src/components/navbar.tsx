@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useClerk, useSession, useUser } from "@clerk/nextjs";
+import { Heart } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const { user, isLoaded, isSignedIn } = useUser();
@@ -25,13 +27,31 @@ export default function Navbar() {
     <nav className=" bg-transparent backdrop-blur-sm transition-all  fixed w-full z-50 backdrop:blur-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
+          <div className="flex w-full justify-between items-center">
+            <div className=" flex items-center md:justify-between">
               <Link href="/">
-                <span className="text-2xl font-bold text-purple-500">
-                  RenderCon&apos;24
-                </span>
+                <Image
+                  src="/Rendercon-wb.png"
+                  alt="logo"
+                  width={100}
+                  height={100}
+                />
               </Link>
+            </div>
+            <div className="">
+              <p className=" text-slate-400 text-xs">
+                by
+                <Link
+                  href="https://github.com/mundume"
+                  className={buttonVariants({
+                    variant: "link",
+                    className: "text-purple-600",
+                  })}
+                >
+                  {" "}
+                  yours truly
+                </Link>
+              </p>
             </div>
           </div>
           {session && (

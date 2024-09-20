@@ -18,6 +18,9 @@ import { prisma } from "@/lib/prisma";
 import Speakers from "@/components/speakers";
 import { UpdateDetails } from "@/components/update-details";
 import { Button } from "@/components/ui/button";
+import { LoadingSpinner } from "@/components/loader";
+import UserSignUp from "@/components/sign-up-button";
+import CreateSocialCardAction from "@/components/create-social-card-action";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -117,12 +120,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
         description: "Get the dates when rendercon is happening",
         parameters: z.object({}).describe("Get the date of RenderCon"),
         generate: async function* () {
-          yield (
-            <p className="flex items-center">
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-              loading{" "}
-            </p>
-          );
+          yield <LoadingSpinner />;
 
           const user = await currentUser();
           const renderConDates = {
@@ -179,12 +177,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
           .object({})
           .describe("Show the registration form for rendercon"),
         generate: async function* () {
-          yield (
-            <p className="flex items-center">
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-              loading{" "}
-            </p>
-          );
+          yield <LoadingSpinner />;
           const toolCallId = generateId();
           const user = await currentUser();
           history.done([
@@ -214,7 +207,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
           ]);
 
           if (!user) {
-            return <SignUpButton />;
+            return <UserSignUp />;
           }
           const socialCard = await checkSocialCard();
 
@@ -230,12 +223,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
         description: "Show the sign in button",
         parameters: z.object({}).describe("Show the sign in button"),
         generate: async function* () {
-          yield (
-            <p className="flex items-center">
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-              loading{" "}
-            </p>
-          );
+          yield <LoadingSpinner />;
           const user = await currentUser();
           const toolCallId = generateId();
 
@@ -268,23 +256,14 @@ Remember to always be helpful, clear, and guide the user through any processes t
           if (user) {
             return <p>User is signed in</p>;
           } else {
-            return (
-              <SignUpButton>
-                <Button className="text-purple-600">Create your account</Button>
-              </SignUpButton>
-            );
+            return <UserSignUp />;
           }
         },
       },
       showSpeakers: {
         parameters: z.object({}).describe("Show the speakers"),
         generate: async function* () {
-          yield (
-            <p className="flex items-center">
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-              loading{" "}
-            </p>
-          );
+          yield <LoadingSpinner />;
           const toolCallId = generateId();
           const speakers = await getSpeakers();
           const user = await currentUser();
@@ -343,12 +322,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
           const speakers = await getSpeakers();
           const speaker = speakers.find((speaker) => speaker.fullName === name);
 
-          yield (
-            <p className="flex">
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-              loading{" "}
-            </p>
-          );
+          yield <LoadingSpinner />;
           history.done([
             ...(history.get() as CoreMessage[]),
             {
@@ -391,12 +365,7 @@ Remember to always be helpful, clear, and guide the user through any processes t
           .object({})
           .describe("Show the user social card for rendercon"),
         generate: async function* () {
-          yield (
-            <p className="flex">
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-              loading{" "}
-            </p>
-          );
+          yield <LoadingSpinner />;
           const toolCallId = generateId();
           const user = await currentUser();
           const userNumber = await prisma.user.findFirst({
@@ -405,40 +374,44 @@ Remember to always be helpful, clear, and guide the user through any processes t
             },
           });
 
+          history.done([
+            ...(history.get() as CoreMessage[]),
+            {
+              role: "assistant",
+              content: [
+                {
+                  type: "text",
+                  text: "show the user social card on the screen",
+                  args: {},
+                },
+              ],
+            },
+            {
+              role: "tool",
+              content: [
+                {
+                  type: "tool-result",
+                  toolCallId,
+                  toolName: "showSocialCard",
+                  result: "show the social card on the screen",
+                },
+              ],
+            },
+          ]);
+
+          if (!user) {
+            return <UserSignUp />;
+          }
           const userWithSocialCard = await checkSocialCard();
-          if (userWithSocialCard) {
-            history.done([
-              ...(history.get() as CoreMessage[]),
-              {
-                role: "assistant",
-                content: [
-                  {
-                    type: "text",
-                    text: "show the user social card on the screen",
-                    args: {},
-                  },
-                ],
-              },
-              {
-                role: "tool",
-                content: [
-                  {
-                    type: "tool-result",
-                    toolCallId,
-                    toolName: "showSocialCard",
-                    result: "show the social card on the screen",
-                  },
-                ],
-              },
-            ]);
+          if (user && userWithSocialCard) {
             return (
               <div className="flex space-x-4 pt-16">
                 <Badge user={userWithSocialCard} number={userNumber?.number} />
               </div>
             );
-          } else {
-            return <p>No user with social card</p>;
           }
+
+          return <CreateSocialCardAction />;
         },
       },
     },
