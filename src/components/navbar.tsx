@@ -40,7 +40,7 @@ export default function Navbar() {
             </div>
             <div className="">
               <p className=" text-slate-400 text-xs">
-                by
+                created by
                 <Link
                   href="https://github.com/mundume"
                   className={buttonVariants({
