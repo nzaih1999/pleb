@@ -76,7 +76,7 @@ export function Hero() {
         ];
 
   return (
-    <div className="flex flex-row justify-center pt-20 pb-10 h-dvh bg-black dark:bg-zinc-900">
+    <div className="flex flex-row justify-center py-20 h-dvh bg-black dark:bg-zinc-900">
       <div className="flex flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}

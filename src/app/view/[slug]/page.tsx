@@ -50,7 +50,7 @@ const Page = async ({ params }: Params) => {
 
             <SocialShareButtons
               url={`https://rendercon-24.vercel.app/share/${params.slug}`}
-              title="See you online/physical on October 5th & 6th"
+              title="I'll be attending @renderconke on october 5th and 6th. See you there. Click here to get your ticket!"
             />
           </div>
           <div className="w-full md:w-1/2 flex items-center justify-center">
