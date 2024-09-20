@@ -5,6 +5,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Share2, Twitter } from "lucide-react";
 import SocialShareButtons from "@/components/copy-to-clipboard";
+import { Metadata } from "next";
 
 type Params = {
   params: {
@@ -12,6 +13,26 @@ type Params = {
   };
 };
 
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const user = await prisma.user.findFirst({
+    where: { id: params.slug },
+    include: {
+      socialCard: true,
+    },
+  });
+
+  return {
+    metadataBase: new URL("https://rendercon-24.vercel.app"),
+    title: `${user?.socialCard?.name} Rendercon Ticket`,
+    description: "Tickets for rendercon 2024",
+    openGraph: {
+      description: "Click this link to create your ticket now",
+
+      title: `${user?.socialCard?.name}'s Rendercon Ticket`,
+      type: "article",
+    },
+  };
+}
 const Page = async ({ params }: Params) => {
   const user = await prisma.user.findFirst({
     where: { id: params.slug },

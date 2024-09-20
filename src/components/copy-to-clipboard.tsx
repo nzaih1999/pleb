@@ -29,8 +29,7 @@ const SocialShareButtons = ({ url, title }: { url: string; title: string }) => {
         onClick={shareToX}
         className={`${buttonClass} bg-black hover:bg-gray-800 focus:ring-gray-500 z-50`}
       >
-        <Twitter size={16} />
-        Share on X
+        Share on 𝕏
       </button>
       <button
         onClick={shareToLinkedIn}

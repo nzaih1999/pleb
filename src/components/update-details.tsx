@@ -222,10 +222,10 @@ export function UpdateDetails({
                 {status === "executing" ? (
                   <>
                     <SquareArrowDownIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
-                    PROCESSING...
+                    UPDATING...
                   </>
                 ) : (
-                  <>INITIATE_REGISTRATION</>
+                  <>UPDATE DETAILS</>
                 )}
                 <BottomGradient />
               </Button>

@@ -29,6 +29,7 @@ export default function RootLayout({
             <main>
               <Navbar />
               {children}
+
               <BackgroundDots />
             </main>
           </AI>

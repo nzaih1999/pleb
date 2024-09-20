@@ -77,13 +77,6 @@ export const Badge = ({
       </div>
 
       <div className=" mt-10 flex items-center justify-center gap-4">
-        <Link
-          href={`/view/${user.userId}/opengraph-image`}
-          className={buttonVariants({})}
-        >
-          <ImageIcon className="mr-2 h-4 w-4" />
-          Download Image
-        </Link>
         <Link href={`/view/${user.userId}`} className={buttonVariants({})}>
           Share
         </Link>
