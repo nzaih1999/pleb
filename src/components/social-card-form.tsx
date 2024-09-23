@@ -96,7 +96,7 @@ export function SocialCardForm({}: {}) {
             >
               Code of Conduct
             </Link>
-            .
+            {/*  */}.
           </p>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(register)} className="space-y-4">
