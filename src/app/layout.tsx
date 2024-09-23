@@ -11,7 +11,7 @@ import Navbar from "@/components/navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rendercon-24.vercel.app"),
+  metadataBase: new URL("https://social.rendercon.org"),
   title: "Rendercon 2024",
   description: "Social cards for Rendercon 2024",
 };

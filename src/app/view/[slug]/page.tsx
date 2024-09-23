@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   });
 
   return {
-    metadataBase: new URL("https://rendercon-24.vercel.app"),
+    metadataBase: new URL("https://social.rendercon.org"),
     title: `${user?.socialCard?.name} Rendercon social card`,
     description: "Social cards for rendercon 2024",
     openGraph: {
