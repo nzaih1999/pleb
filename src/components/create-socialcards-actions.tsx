@@ -6,8 +6,8 @@ import React, { ReactNode } from "react";
 import { motion } from "framer-motion";
 const socialCardActions = [
   {
-    title: "Create",
-    label: "create your ticket",
+    title: "create",
+    label: "create your card",
     action: "Show the registration form for rendercon",
   },
 

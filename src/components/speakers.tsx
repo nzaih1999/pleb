@@ -29,8 +29,8 @@ const suggestedActions = [
 
 const loggedInActions = [
   {
-    title: "ticket",
-    label: "create your ticket",
+    title: "create",
+    label: "create your card",
     action: "Show the registration form for rendercon",
   },
   {
@@ -43,12 +43,12 @@ const loggedInActions = [
 const socialCardActions = [
   {
     title: "Edit",
-    label: "Edit your ticket",
+    label: "Edit your card",
     action: "Show the registration form for rendercon",
   },
   {
-    title: "Ticket",
-    label: "view your ticket",
+    title: "view",
+    label: "view your social card",
     action: "show my card",
   },
   {

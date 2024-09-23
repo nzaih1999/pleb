@@ -19,12 +19,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
   return {
     metadataBase: new URL("https://rendercon-24.vercel.app"),
-    title: `${user?.socialCard?.name} Rendercon Ticket`,
-    description: "Tickets for rendercon 2024",
+    title: `${user?.socialCard?.name} Rendercon social card`,
+    description: "Social cards for rendercon 2024",
     openGraph: {
-      description: "Click this link to create your ticket now",
+      description: "Click this link to create your social card now",
 
-      title: `${user?.socialCard?.name}'s Rendercon Ticket`,
+      title: `${user?.socialCard?.name}'s Rendercon social card`,
       type: "article",
     },
   };
@@ -50,7 +50,7 @@ const Page = async ({ params }: Params) => {
 
             <SocialShareButtons
               url={`https://rendercon-24.vercel.app/share/${params.slug}`}
-              title="I'll be attending @renderconke on october 5th and 6th. See you there. Click here to get your ticket!"
+              title="I'll be attending @renderconke on october 5th and 6th. See you there. Click here to get your card!"
             />
           </div>
           <div className="w-full md:w-1/2 flex items-center justify-center">
