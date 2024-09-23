@@ -89,8 +89,12 @@ export function SocialCardForm({}: {}) {
           </h1>
           <p className="mb-6 text-sm">
             By entering your information, you acknowledge you have read our{" "}
-            <Link href="#" className="text-slate-500 hover:underline">
-              Privacy Protocol v2.1
+            <Link
+              href="https://www.rendercon.org/coc"
+              className="text-slate-500 hover:underline"
+              target="_blank"
+            >
+              Code of Conduct
             </Link>
             .
           </p>
