@@ -64,7 +64,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
           <div
             style={{ fontSize: "36px", color: "#9333ea", marginTop: "10px" }}
           >
-            On 5th and 6th October!
+            On 4th and 5th October!
           </div>
         </div>
 

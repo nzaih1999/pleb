@@ -44,13 +44,13 @@ const Page = async ({ params }: Params) => {
           <div className="w-full md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <h1 className="md:text-5xl text-2xl font-bold mb-4">
               See you online/physical on{" "}
-              <span className="text-purple-500">October 5th</span>&
-              <span className="text-purple-500">6th</span>
+              <span className="text-purple-500">October 4th</span>&
+              <span className="text-purple-500">5th</span>
             </h1>
 
             <SocialShareButtons
               url={`https://social.rendercon.org/share/${params.slug}`}
-              title="I'll be attending @renderconke on october 5th and 6th. See you there. Click here to get your card!"
+              title="I'll be attending @renderconke on october 4th and 5th. See you there. Click here to get your card!"
             />
           </div>
           <div className="w-full md:w-1/2 flex items-center justify-center">
