@@ -41,3 +41,34 @@ type UserWithSocialCard = {
     socialCard: SocialCard;
   };
 };
+
+interface Directions {
+  step: string;
+  duration: string;
+  distance: string;
+}
+
+export const directions: Directions[] = [
+  {
+    step: "Follow Haile Selassie Ave to Uhuru Hwy/A104",
+    duration: "4 min",
+    distance: "1.7 km",
+  },
+  {
+    step: "Take Langata Rd to Magadi Rd/C58",
+    duration: "14 min",
+    distance: "9.7 km",
+  },
+  {
+    step: "Continue on Magadi Rd/C58. Drive to Bogani E Rd",
+    duration: "3 min",
+    distance: "1.8 km",
+  },
+  {
+    step: "Catholic University of Eastern Africa",
+    duration: "",
+    distance: "Bogani E Rd, Nairobi",
+  },
+];
+
+export default directions;

@@ -9,6 +9,8 @@ import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import { generateId } from "ai";
 import { ClientMessage } from "@/app/(ai)/actions";
 import { useUser } from "@clerk/nextjs";
+import GoogleMapsDirections from "./maps";
+import { DisclosureCard } from "./directions-card";
 
 export function Hero() {
   const { sendMessage } = useActions();
@@ -135,12 +137,17 @@ export function Hero() {
           </div>
         )}
 
-        <div className="flex flex-col gap-2 relative items-center">
+        <div className="flex flex-col gap-2 relative items-center z-50">
           <PlaceholdersAndVanishInput
             placeholders={["Ask me anything"]}
             onChange={handleChange}
             onSubmit={onSubmit}
           />
+        </div>
+        <div className="max-w-3xl text-center z-50 max-h-[500px]   ">
+          <div className="w-full h-full m-auto">
+            <GoogleMapsDirections />
+          </div>
         </div>
       </div>
     </div>
