@@ -57,6 +57,11 @@ export function Hero() {
             label: "When is rendercon?",
             action: "Show dates for rendercon",
           },
+          {
+            title: "Where",
+            label: "location",
+            action: "show the location where  rendercon will be held",
+          },
         ]
       : [
           {
@@ -75,10 +80,15 @@ export function Hero() {
             label: "Who are the speakers?",
             action: "Show speakers",
           },
+          {
+            title: "Where",
+            label: "location",
+            action: "show the location where  rendercon will be held",
+          },
         ];
 
   return (
-    <div className="flex flex-row justify-center py-20 h-dvh bg-black dark:bg-zinc-900">
+    <div className="flex flex-row justify-center py-20 h-dvh w-full bg-black dark:bg-zinc-900">
       <div className="flex flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
@@ -143,11 +153,6 @@ export function Hero() {
             onChange={handleChange}
             onSubmit={onSubmit}
           />
-        </div>
-        <div className="max-w-3xl text-center z-50 max-h-[500px]   ">
-          <div className="w-full h-full m-auto">
-            <GoogleMapsDirections />
-          </div>
         </div>
       </div>
     </div>
