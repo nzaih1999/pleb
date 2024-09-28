@@ -1,4 +1,5 @@
 "use client";
+
 import { ClientMessage } from "@/app/(ai)/actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { generateId } from "ai";
@@ -25,6 +26,11 @@ const suggestedActions = [
     label: " see the speakers",
     action: "Show the speakers",
   },
+  {
+    title: "Where",
+    label: "location",
+    action: "show the location where  rendercon will be held",
+  },
 ];
 
 const loggedInActions = [
@@ -37,6 +43,11 @@ const loggedInActions = [
     title: "Speakers",
     label: "Who are the speakers?",
     action: "Show the speakers",
+  },
+  {
+    title: "Where",
+    label: "location",
+    action: "show the location where  rendercon will be held",
   },
 ];
 
@@ -51,11 +62,15 @@ const socialCardActions = [
     label: "view your card",
     action: "show my card",
   },
-
   {
     title: "Speakers",
     label: "Who are the speakers?",
     action: "Show the speakers",
+  },
+  {
+    title: "Where",
+    label: "location",
+    action: "show the location where  rendercon will be held",
   },
 ];
 
@@ -67,6 +82,12 @@ export default function DateTime({
 }: RenderConCardProps) {
   const { continueConversation } = useActions();
   const [_, setConversation] = useUIState();
+
+  const getActions = () => {
+    if (userId && socialCard) return socialCardActions;
+    if (userId) return loggedInActions;
+    return suggestedActions;
+  };
 
   return (
     <div>
@@ -101,12 +122,7 @@ export default function DateTime({
         </CardContent>
       </Card>
       <div className="grid sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] my-4 z-50">
-        {(userId && socialCard
-          ? socialCardActions
-          : userId
-          ? loggedInActions
-          : suggestedActions
-        ).map((action, index) => (
+        {getActions().map((action, index) => (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,7 +150,9 @@ export default function DateTime({
               }}
               className="w-full text-left border border-zinc-800 text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-800 transition-colors flex flex-col"
             >
-              <span className="font-medium">{action.title}</span>
+              <span className="font-medium text-purple-500">
+                {action.title}
+              </span>
               <span className="text-zinc-500 dark:text-zinc-400">
                 {action.label}
               </span>

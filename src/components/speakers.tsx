@@ -13,18 +13,26 @@ type SpeakersProps = {
   socialCard?: boolean;
 };
 
+const commonActions = [
+  {
+    title: "When",
+    label: "When is rendercon?",
+    action: "Show dates for rendercon",
+  },
+  {
+    title: "Where",
+    label: "location",
+    action: "show the location where  rendercon will be held",
+  },
+];
+
 const suggestedActions = [
   {
     title: "Sign in",
     label: "Sign in to Rendercon",
     action: "Show the sign in button",
   },
-
-  {
-    title: "When",
-    label: "When is rendercon?",
-    action: "Show dates for rendercon",
-  },
+  ...commonActions,
 ];
 
 const loggedInActions = [
@@ -33,11 +41,7 @@ const loggedInActions = [
     label: "create your card",
     action: "Show the registration form for rendercon",
   },
-  {
-    title: "When",
-    label: "When is rendercon?",
-    action: "Show dates for rendercon",
-  },
+  ...commonActions,
 ];
 
 const socialCardActions = [
@@ -51,16 +55,18 @@ const socialCardActions = [
     label: "view your social card",
     action: "show my card",
   },
-  {
-    title: "When",
-    label: "When is rendercon?",
-    action: "Show dates for rendercon",
-  },
+  ...commonActions,
 ];
 
 const Speakers = ({ speakers, socialCard, userId }: SpeakersProps) => {
   const { continueConversation } = useActions();
   const [_, setConversation] = useUIState();
+
+  const getActions = () => {
+    if (userId && socialCard) return socialCardActions;
+    if (userId) return loggedInActions;
+    return suggestedActions;
+  };
 
   return (
     <div className="">
@@ -69,12 +75,7 @@ const Speakers = ({ speakers, socialCard, userId }: SpeakersProps) => {
       ))}
 
       <div className="grid sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] my-4 z-50">
-        {(userId && socialCard
-          ? socialCardActions
-          : userId
-          ? loggedInActions
-          : suggestedActions
-        ).map((action, index) => (
+        {getActions().map((action, index) => (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

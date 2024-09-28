@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { ReactNode, useEffect, useState } from "react";
@@ -42,6 +43,11 @@ const loggedInActions = [
     label: "Who are the speakers?",
     action: "Show the speakers",
   },
+  {
+    title: "When",
+    label: "When is rendercon?",
+    action: "Show dates for rendercon",
+  },
 ];
 
 const socialCardActions = [
@@ -55,11 +61,15 @@ const socialCardActions = [
     label: "view your card",
     action: "show my card",
   },
-
   {
     title: "Speakers",
     label: "Who are the speakers?",
     action: "Show the speakers",
+  },
+  {
+    title: "When",
+    label: "When is rendercon?",
+    action: "Show dates for rendercon",
   },
 ];
 
@@ -94,6 +104,12 @@ export default function GoogleMapsDirections({
     }
   }, []);
 
+  const getActions = () => {
+    if (user && socialCard) return socialCardActions;
+    if (user) return loggedInActions;
+    return suggestedActions;
+  };
+
   return (
     <APIProvider apiKey={API_KEY}>
       <div className="flex justify-center items-center">
@@ -112,12 +128,7 @@ export default function GoogleMapsDirections({
                 </Map>
               </div>
               <div className="grid sm:grid-cols-2 gap-2 w-full px-4 md:px-0 mx-auto md:max-w-[500px] my-6 z-10">
-                {(user && socialCard
-                  ? socialCardActions
-                  : user
-                  ? loggedInActions
-                  : suggestedActions
-                ).map((action, index) => (
+                {getActions().map((action, index) => (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -145,7 +156,9 @@ export default function GoogleMapsDirections({
                       }}
                       className="w-full text-left border border-zinc-800 text-zinc-300 rounded-lg p-2 text-sm hover:bg-zinc-800 transition-colors flex flex-col"
                     >
-                      <span className="font-medium">{action.title}</span>
+                      <span className="font-medium text-purple-500">
+                        {action.title}
+                      </span>
                       <span className="text-zinc-500 dark:text-zinc-400">
                         {action.label}
                       </span>

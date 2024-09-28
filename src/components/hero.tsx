@@ -9,8 +9,6 @@ import { PlaceholdersAndVanishInput } from "@/components/vanish-input";
 import { generateId } from "ai";
 import { ClientMessage } from "@/app/(ai)/actions";
 import { useUser } from "@clerk/nextjs";
-import GoogleMapsDirections from "./maps";
-import { DisclosureCard } from "./directions-card";
 
 export function Hero() {
   const { sendMessage } = useActions();
@@ -43,6 +41,24 @@ export function Hero() {
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>();
 
+  const commonActions = [
+    {
+      title: "When",
+      label: "When is rendercon?",
+      action: "Show dates for rendercon",
+    },
+    {
+      title: "Speakers",
+      label: "Who are the speakers?",
+      action: "Show speakers",
+    },
+    {
+      title: "Where",
+      label: "location",
+      action: "show the location where  rendercon will be held",
+    },
+  ];
+
   const suggestedActions =
     isLoaded && isSignedIn
       ? [
@@ -51,17 +67,7 @@ export function Hero() {
             label: "Who are the speakers?",
             action: "Show speakers",
           },
-
-          {
-            title: "When",
-            label: "When is rendercon?",
-            action: "Show dates for rendercon",
-          },
-          {
-            title: "Where",
-            label: "location",
-            action: "show the location where  rendercon will be held",
-          },
+          ...commonActions,
         ]
       : [
           {
@@ -69,22 +75,7 @@ export function Hero() {
             label: "Sign in to Rendercon",
             action: "Show the sign in button",
           },
-
-          {
-            title: "When",
-            label: "When is rendercon?",
-            action: "Show dates for rendercon",
-          },
-          {
-            title: "Speakers",
-            label: "Who are the speakers?",
-            action: "Show speakers",
-          },
-          {
-            title: "Where",
-            label: "location",
-            action: "show the location where  rendercon will be held",
-          },
+          ...commonActions,
         ];
 
   return (
