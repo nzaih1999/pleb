@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/loader";
 import UserSignUp from "@/components/sign-up-button";
 import CreateSocialCardAction from "@/components/create-social-card-action";
+import GoogleMapsDirections from "@/components/maps";
 
 const groq = createOpenAI({
   baseURL: "https://api.groq.com/openai/v1",
@@ -58,11 +59,13 @@ Available tools:
 4. showSpeakers: Use this to display information about all RenderCon speakers.
 5. showSpeaker: Use this to display information about a specific speaker (requires the speaker's name).
 6. showSocialCard: Use this to display the user's social card for RenderCon.
+7. showLocation: Use this to display the location  where RenderCon will be held.
 
 Guidelines:
 
 - Always use the most appropriate tool based on the user's query.
 - If a user asks about dates, use the showRenderConDate tool.
+-If a user asks about the location or  where RenderCon will be held, use the showLocation tool.
 - For registration inquiries, use the showRenderconRegistration tool.
 - If authentication is mentioned, use the showSignInButton tool.
 - For general speaker information, use the showSpeakers tool.
@@ -78,6 +81,11 @@ User: "When is RenderCon happening?"
 Assistant: Certainly! Let me show you the dates for RenderCon.
 [Use showRenderConDate tool]
 The dates for RenderCon have been displayed. Is there anything else you'd like to know about the event?
+
+User:"show me the location where will rendercon be held?"
+Assistant: I can help you with that. I'll show you where RenderCon will be held.
+[Use showLocation tool]
+The location for RenderCon has been displayed. Is there anything else you'd like to know about the event?
 
 User: "How can I register for the conference?"
 Assistant: I'd be happy to help you with the registration process. Let me bring up the registration form for you.
@@ -98,6 +106,7 @@ User: "How do I see my social card?"
 Assistant: I'd be happy to help you with that. let me show you your social card.
 [Use showSocialCard tool]
 Your RenderCon social card should now be displayed on the screen. It contains your personal information for the conference. Is everything on the card correct, or would you like to make any changes?
+
 
 Remember to always be helpful, clear, and guide the user through any processes that might require multiple steps or tools.`,
     messages: [
@@ -412,6 +421,67 @@ Remember to always be helpful, clear, and guide the user through any processes t
           }
 
           return <CreateSocialCardAction />;
+        },
+      },
+      showLocation: {
+        parameters: z
+          .object({})
+          .describe("Show the location where  rendercon will be held"),
+        generate: async function* () {
+          yield <LoadingSpinner />;
+          const toolCallId = generateId();
+          const user = await currentUser();
+          const userNumber = await prisma.user.findFirst({
+            where: {
+              clerkId: user?.id,
+            },
+          });
+
+          history.done([
+            ...(history.get() as CoreMessage[]),
+            {
+              role: "assistant",
+              content: [
+                {
+                  type: "text",
+                  text: "show the location where  rendercon will be held",
+                  args: {
+                    user: user?.id,
+                  },
+                },
+              ],
+            },
+            {
+              role: "tool",
+              content: [
+                {
+                  type: "tool-result",
+                  toolCallId,
+                  toolName: "showLocation",
+                  result: "showing the location on the screen",
+                  args: {
+                    user: user?.id,
+                  },
+                },
+              ],
+            },
+          ]);
+
+          if (!user) {
+            return <GoogleMapsDirections user={false} socialCard={false} />;
+          }
+          const userWithSocialCard = await checkSocialCard();
+          if (user && userWithSocialCard) {
+            return (
+              <div className=" text-center z-50    ">
+                <div className="w-96">
+                  <GoogleMapsDirections socialCard={true} user={true} />
+                </div>
+              </div>
+            );
+          }
+
+          return <GoogleMapsDirections user={true} socialCard={false} />;
         },
       },
     },

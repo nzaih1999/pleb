@@ -41,6 +41,24 @@ export function Hero() {
   const [messagesContainerRef, messagesEndRef] =
     useScrollToBottom<HTMLDivElement>();
 
+  const commonActions = [
+    {
+      title: "When",
+      label: "When is rendercon?",
+      action: "Show dates for rendercon",
+    },
+    {
+      title: "Speakers",
+      label: "Who are the speakers?",
+      action: "Show speakers",
+    },
+    {
+      title: "Where",
+      label: "location",
+      action: "show the location where  rendercon will be held",
+    },
+  ];
+
   const suggestedActions =
     isLoaded && isSignedIn
       ? [
@@ -49,12 +67,7 @@ export function Hero() {
             label: "Who are the speakers?",
             action: "Show speakers",
           },
-
-          {
-            title: "When",
-            label: "When is rendercon?",
-            action: "Show dates for rendercon",
-          },
+          ...commonActions,
         ]
       : [
           {
@@ -62,21 +75,11 @@ export function Hero() {
             label: "Sign in to Rendercon",
             action: "Show the sign in button",
           },
-
-          {
-            title: "When",
-            label: "When is rendercon?",
-            action: "Show dates for rendercon",
-          },
-          {
-            title: "Speakers",
-            label: "Who are the speakers?",
-            action: "Show speakers",
-          },
+          ...commonActions,
         ];
 
   return (
-    <div className="flex flex-row justify-center py-20 h-dvh bg-black dark:bg-zinc-900">
+    <div className="flex flex-row justify-center py-20 h-dvh w-full bg-black dark:bg-zinc-900">
       <div className="flex flex-col justify-between gap-4">
         <div
           ref={messagesContainerRef}
@@ -135,7 +138,7 @@ export function Hero() {
           </div>
         )}
 
-        <div className="flex flex-col gap-2 relative items-center">
+        <div className="flex flex-col gap-2 relative items-center z-50">
           <PlaceholdersAndVanishInput
             placeholders={["Ask me anything"]}
             onChange={handleChange}
