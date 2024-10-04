@@ -68,7 +68,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
                   priority
                   width={400}
                   height={400}
-                  src={speaker.profilePicture}
+                  src={speaker.profilePicture || ""}
                   alt={speaker.fullName}
                   className="w-full h-80 lg:h-auto object-cover object-top"
                 />
@@ -145,7 +145,7 @@ export function SpeakersCard({ speaker }: { speaker: Speaker }) {
                 <Image
                   width={400}
                   height={400}
-                  src={speaker.profilePicture}
+                  src={speaker.profilePicture || ""}
                   alt={speaker.fullName}
                   className="w-full rounded-lg object-cover object-top"
                 />
