@@ -46,7 +46,7 @@ export async function continueConversation(
   const history = getMutableAIState();
 
   const result = await streamUI({
-    model: groq("llama3-groq-70b-8192-tool-use-preview"),
+    model: groq("llama-3.3-70b-versatile"),
     system: `
 
 You are an AI assistant designed to help users with information and tasks related to RenderCon. You have access to several tools that you can use to provide information and interact with the user interface. Your task is to understand user queries, determine which tool is most appropriate, and then use that tool to assist the user.
