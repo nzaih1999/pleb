@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# RenderCon Social Cards Design and Engineering
+
+This is the official RenderCon Nairobi custom social cards ticket generation project, inspired by Next.js Conf 2024. Powered by Vercel's new Generative UI architecture and Meta's Llama 3.3, it streams React components from a large language model using React Server Components.
+
+## Features
+
+- **Generative UI**: Leverages Vercel's Generative UI to stream React components from a large language model.
+- **Llama 3.3 Integration**: Utilizes Meta's Llama 3.3 model for natural language processing.
+- **Easy Deployment**: Ready for deployment on Vercel or other hosting platforms.
+
+## Tech Stack
+
+- **Framework**: Next.js
+- **UI**: Generative UI
+- **AI Model**: Meta's Llama 3.3
+- **Styling**: Tailwind CSS
+- **Backend**: Next.js Server Actions
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
+- Node.js (version 18 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+   git clone https://github.com/rendercon/social.rendercon.org
+
+2. Navigate to the project directory:
+
+   cd social.rendercon.org
+
+3. Install dependencies:
+
+   npm install
+
+4. Create a `.env.local` file and add the following variables:
+
+   ```env
+   ROQ_API_KEY=""
+   GOOGLE_API_KEY=""
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+   CLERK_SECRET_KEY=
+   DATABASE_URL=
+   ```
+
+### Development
+
+Start the development server:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. Build the application:
 
-## Learn More
+   npm run build
 
-To learn more about Next.js, take a look at the following resources:
+2. Start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   npm start
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Deployment
 
-## Deploy on Vercel
+Deploy the app to Vercel:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+vercel deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+
+2. Create a new branch:
+
+   git checkout -b feature/your-feature-name
+
+3. Make your changes and commit them:
+
+   git commit -m "Add your message here"
+
+4. Push your branch:
+
+   git push origin feature/your-feature-name
+
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or suggestions, feel free to open an issue or reach out at [nzaih18@gmail.com](mailto:nzaih18@gmail.com).
