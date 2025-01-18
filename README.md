@@ -1,4 +1,4 @@
-# RenderCon Social Cards Design and Engineering
+# RenderCon Social Cards 2024
 
 This is the official RenderCon Nairobi custom social cards ticket generation project, inspired by Next.js Conf 2024. Powered by Vercel's new Generative UI architecture and Meta's Llama 3.3, it streams React components from a large language model using React Server Components.
 
