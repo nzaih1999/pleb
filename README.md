@@ -36,7 +36,7 @@ This is the official RenderCon Nairobi custom social cards ticket generation pro
 
 3. Install dependencies:
 
-   npm install
+   ```pnpm i```
 
 4. Create a `.env.local` file and add the following variables:
 
@@ -52,7 +52,7 @@ This is the official RenderCon Nairobi custom social cards ticket generation pro
 
 Start the development server:
 
-npm run dev
+``` pnpm  dev```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the app.
 
@@ -60,11 +60,11 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 
 1. Build the application:
 
-   npm run build
+   ``` pnpm  build```
 
 2. Start the production server:
 
-   npm start
+   ```pnpm dev```
 
 ### Deployment
 
